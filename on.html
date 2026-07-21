@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Obligaciones Negociables &#8212; Retail20inversiones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cp:#8B1A2D; --cp-dark:#6E1422; --cp-mid:#A42535;
+      --cs:#C9A84C; --cs-dark:#B8963E;
+      --fondo:#f9f7f7; --fondo-alt:#f2eced; --blanco:#ffffff;
+      --texto:#1e1a1b; --texto-suave:#5a4e50; --texto-claro:#9a8a8c;
+      --borde:#e8dfe0;
+      --verde:#16a34a; --azul:#1d4ed8;
+      --r:12px; --r-sm:8px;
+      --s-sm:0 2px 8px rgba(139,26,45,.06);
+      --s-md:0 4px 20px rgba(139,26,45,.09);
+      --s-lg:0 8px 32px rgba(139,26,45,.13);
+      --max-w:1100px; --nav-h:82px;
+      --font:'Inter',system-ui,sans-serif; --ease:all .3s ease;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);}
+    body{font-family:var(--font);background:var(--fondo);color:var(--texto);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    img{max-width:100%;height:auto;display:block;}
+    a{color:inherit;text-decoration:none;}
+
+    .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px;}
+    .sec{padding:80px 0;}
+    .sec-alt{background:var(--fondo-alt);}
+    .sec-badge{display:inline-block;background:rgba(139,26,45,.1);color:var(--cp);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+    .sec-titulo{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--cp);margin-bottom:10px;}
+    .sec-sub{font-size:.975rem;color:var(--texto-suave);max-width:680px;margin-bottom:44px;line-height:1.7;}
+
+    /* Nav */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--borde);transition:var(--ease);}
+    .nav.scrolled{box-shadow:var(--s-md);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:none;padding:0 32px;}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;color:var(--cp);}
+    .logo-wrap{height:64px;width:64px;flex-shrink:0;border:2.5px solid var(--cp);border-radius:10px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;}
+    .logo-img{width:130%;height:130%;object-fit:contain;display:block;}
+    .logo-fallback{width:38px;height:38px;background:var(--cp);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cs);font-size:.8rem;font-weight:800;}
+    .nav-menu{display:flex;align-items:center;gap:2px;list-style:none;}
+    .nav-menu a{display:block;padding:8px 9px;font-size:.8rem;font-weight:500;color:var(--texto-suave);border-radius:var(--r-sm);transition:var(--ease);white-space:nowrap;}
+    .nav-menu a:hover,.nav-menu a.on{color:var(--cp);background:var(--fondo-alt);font-weight:600;}
+    .nav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--cp);color:var(--blanco)!important;border-radius:var(--r-sm);font-size:.83rem;font-weight:700;transition:var(--ease);white-space:nowrap;margin-left:8px;}
+    .nav-cta:hover{background:var(--cp-dark)!important;transform:translateY(-1px);box-shadow:var(--s-md);}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+    .nav-toggle span{display:block;width:24px;height:2px;background:var(--cp);border-radius:2px;transition:var(--ease);}
+    .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.open span:nth-child(2){opacity:0;}
+    .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    /* Page hero */
+    .page-hero{background:linear-gradient(135deg,var(--cp-dark) 0%,var(--cp) 60%,var(--cp-mid) 100%);padding:calc(var(--nav-h) + 60px) 0 70px;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,.12) 0%,transparent 60%);pointer-events:none;}
+    .page-hero-inner{position:relative;z-index:1;}
+    .page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--cs);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+    .page-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
+    .page-hero p{font-size:1.05rem;color:rgba(255,255,255,.72);max-width:560px;line-height:1.7;margin-bottom:36px;}
+
+    /* Intro layout */
+    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+    .intro-texto h2{font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;color:var(--cp);margin-bottom:18px;line-height:1.3;}
+    .intro-texto p{font-size:.95rem;color:var(--texto-suave);line-height:1.8;margin-bottom:14px;}
+    .intro-texto strong{color:var(--cp);}
+
+    /* Stat callout */
+    .stat-callout{display:flex;align-items:center;gap:20px;background:rgba(139,26,45,.05);border:1.5px solid rgba(139,26,45,.15);border-left:4px solid var(--cp);border-radius:var(--r);padding:20px 24px;margin-top:28px;}
+    .stat-callout-num{font-size:2.4rem;font-weight:800;color:var(--cp);line-height:1;flex-shrink:0;}
+    .stat-callout-label{font-size:.88rem;color:var(--texto-suave);line-height:1.55;}
+    .stat-callout-label strong{color:var(--texto);font-weight:700;display:block;margin-bottom:2px;}
+
+    /* Chart */
+    .chart-card{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);padding:32px;box-shadow:var(--s-sm);}
+    .chart-card-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--texto-claro);margin-bottom:6px;}
+    .chart-card-subtitle{font-size:.88rem;color:var(--texto-suave);margin-bottom:24px;}
+    .chart-wrap{position:relative;width:100%;}
+    canvas#ppChart{width:100%;height:auto;display:block;}
+    .chart-legend{display:flex;align-items:center;gap:24px;margin-top:16px;flex-wrap:wrap;}
+    .chart-leg-item{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--texto-suave);}
+    .chart-leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+
+    /* Transition section */
+    .pregunta-box{background:linear-gradient(135deg,var(--cp-dark),var(--cp));border-radius:var(--r);padding:52px 48px;color:#fff;text-align:center;position:relative;overflow:hidden;}
+    .pregunta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(201,168,76,.15) 0%,transparent 60%);pointer-events:none;}
+    .pregunta-box-inner{position:relative;z-index:1;}
+    .pregunta-box h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;line-height:1.25;margin-bottom:18px;}
+    .pregunta-box h2 em{color:var(--cs);font-style:normal;}
+    .pregunta-box p{font-size:1rem;color:rgba(255,255,255,.76);max-width:640px;margin:0 auto 36px;line-height:1.75;}
+    .pregunta-arrow{display:flex;justify-content:center;align-items:center;margin-top:0;}
+    .pregunta-arrow-icon{width:52px;height:52px;background:rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+
+    /* Renta fija intro */
+    .rf-intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;margin-bottom:44px;}
+    .rf-intro{max-width:640px;}
+    .rf-intro h2{font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;color:var(--cp);margin-bottom:18px;line-height:1.3;}
+    .rf-intro p{font-size:.975rem;color:var(--texto-suave);line-height:1.8;margin-bottom:14px;}
+    .rf-intro strong{color:var(--cp);}
+    .rf-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;box-shadow:var(--s-md);border:1.5px solid var(--borde);background:#000;}
+    .rf-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+    .rf-video-cap{font-size:.78rem;color:var(--texto-claro);margin-top:10px;text-align:center;}
+    @media(max-width:860px){.rf-intro-grid{grid-template-columns:1fr;gap:28px;}.rf-intro{max-width:none;}}
+
+    /* ON features grid */
+    .on-features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0;}
+    .on-feature{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);padding:22px 20px;}
+    .on-feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:rgba(139,26,45,.08);}
+    .on-feature-titulo{font-size:.9rem;font-weight:700;color:var(--texto);margin-bottom:6px;}
+    .on-feature-desc{font-size:.8rem;color:var(--texto-suave);line-height:1.6;}
+
+    /* Company cards */
+    .empresas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px;}
+    .empresa-card{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);padding:20px 18px;transition:var(--ease);position:relative;overflow:hidden;}
+    .empresa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .empresa-card.e-energia::before{background:linear-gradient(90deg,#f59e0b,#d97706);}
+    .empresa-card.e-financiero::before{background:linear-gradient(90deg,var(--cp),var(--cp-mid));}
+    .empresa-card.e-consumo::before{background:linear-gradient(90deg,var(--cs),var(--cs-dark));}
+    .empresa-card.e-telecom::before{background:linear-gradient(90deg,#3b82f6,#1d4ed8);}
+    .empresa-card:hover{border-color:rgba(139,26,45,.25);box-shadow:var(--s-md);transform:translateY(-2px);}
+    .empresa-sector{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+    .e-energia .empresa-sector{background:rgba(245,158,11,.12);color:#b45309;}
+    .e-financiero .empresa-sector{background:rgba(139,26,45,.1);color:var(--cp);}
+    .e-consumo .empresa-sector{background:rgba(201,168,76,.15);color:var(--cs-dark);}
+    .e-telecom .empresa-sector{background:rgba(59,130,246,.1);color:#1d4ed8;}
+    .empresa-nombre{font-size:.98rem;font-weight:700;color:var(--texto);margin-bottom:4px;}
+    .empresa-ticker{font-size:.72rem;color:var(--texto-claro);}
+
+    /* Cashflow section */
+    .cf-header-card{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);padding:24px 28px;display:flex;align-items:center;gap:28px;margin-bottom:32px;position:relative;overflow:hidden;}
+    .cf-header-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#f59e0b,#d97706);}
+    .cf-logo-circle{width:56px;height:56px;background:rgba(245,158,11,.1);border:2px solid rgba(245,158,11,.3);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;font-weight:800;color:#b45309;}
+    .cf-on-nombre{font-size:1.15rem;font-weight:800;color:var(--texto);line-height:1.2;}
+    .cf-on-ticker{font-size:.78rem;font-weight:600;color:#b45309;letter-spacing:.04em;margin-top:2px;}
+    .cf-specs{display:flex;gap:0;flex:1;justify-content:flex-end;}
+    .cf-spec{text-align:center;padding:0 20px;border-left:1px solid var(--borde);}
+    .cf-spec-val{font-size:1.3rem;font-weight:800;color:var(--cp);line-height:1;}
+    .cf-spec-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--texto-claro);margin-top:4px;}
+
+    /* Payment bar chart */
+    .cf-chart-card{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);padding:28px 28px 20px;margin-bottom:28px;}
+    .cf-chart-card-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--texto-claro);margin-bottom:20px;}
+    canvas#cfChart{width:100%;display:block;}
+
+    /* Cashflow table */
+    .cf-table-wrap{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);overflow:hidden;margin-bottom:28px;}
+    .cf-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+    .cf-table th{background:var(--cp);color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:11px 14px;text-align:right;}
+    .cf-table th:first-child{text-align:left;}
+    .cf-table td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--borde);color:var(--texto-suave);}
+    .cf-table td:first-child{text-align:left;font-weight:600;color:var(--texto);}
+    .cf-table tr:last-child td{border-bottom:none;background:rgba(139,26,45,.04);font-weight:700;color:var(--texto);}
+    .cf-table tr.cf-final td{background:rgba(139,26,45,.05);font-weight:700;color:var(--cp);}
+    .cf-table tr:hover td:not(.cf-table tr:last-child td){background:var(--fondo);}
+    .cf-renta{color:var(--verde)!important;}
+    .cf-amort{color:var(--azul)!important;}
+
+    /* Liquidity callouts */
+    .liq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+    .liq-card{border-radius:var(--r);padding:22px 20px;border:1.5px solid;}
+    .liq-card.verde{background:rgba(22,163,74,.05);border-color:rgba(22,163,74,.25);}
+    .liq-card.azul{background:rgba(29,78,216,.04);border-color:rgba(29,78,216,.2);}
+    .liq-card.gold{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.3);}
+    .liq-card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+    .liq-card.verde .liq-card-icon{background:rgba(22,163,74,.12);}
+    .liq-card.azul  .liq-card-icon{background:rgba(29,78,216,.1);}
+    .liq-card.gold  .liq-card-icon{background:rgba(201,168,76,.15);}
+    .liq-card-titulo{font-size:.9rem;font-weight:700;margin-bottom:6px;}
+    .liq-card.verde .liq-card-titulo{color:var(--verde);}
+    .liq-card.azul  .liq-card-titulo{color:var(--azul);}
+    .liq-card.gold  .liq-card-titulo{color:var(--cs-dark);}
+    .liq-card-desc{font-size:.8rem;color:var(--texto-suave);line-height:1.6;}
+    @media(max-width:700px){.liq-grid{grid-template-columns:1fr;} .cf-specs{flex-wrap:wrap;gap:12px;justify-content:flex-start;margin-top:12px;} .cf-header-card{flex-wrap:wrap;} .cf-spec{border-left:none;border-top:1px solid var(--borde);padding:12px 0 0;}}
+
+    /* CTA box */
+    .on-cta-box{background:linear-gradient(135deg,var(--cp-dark),var(--cp));border-radius:var(--r);padding:40px 44px;color:#fff;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;margin-top:56px;}
+    .on-cta-box h3{font-size:1.2rem;font-weight:800;margin-bottom:8px;}
+    .on-cta-box p{font-size:.9rem;color:rgba(255,255,255,.72);line-height:1.65;max-width:520px;}
+    .on-cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--cs);color:var(--cp-dark);font-size:.88rem;font-weight:700;padding:12px 24px;border-radius:var(--r-sm);transition:var(--ease);white-space:nowrap;}
+    .on-cta-btn:hover{background:#fff;transform:translateY(-1px);}
+
+    /* Responsive */
+    @media(max-width:900px){
+      .intro-grid{grid-template-columns:1fr;}
+      .on-features{grid-template-columns:1fr 1fr;}
+      .empresas-grid{grid-template-columns:1fr 1fr;}
+      .on-cta-box{grid-template-columns:1fr;text-align:center;}
+    }
+    @media(max-width:600px){
+      .on-features{grid-template-columns:1fr;}
+      .empresas-grid{grid-template-columns:1fr 1fr;}
+      .pregunta-box{padding:36px 24px;}
+    }
+    @media(max-width:480px){
+      .empresas-grid{grid-template-columns:1fr;}
+      .sec{padding:56px 0;}
+    }
+    @media(max-width:768px){
+      .nav-toggle{display:flex;}
+      .nav-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:#fff;flex-direction:column;padding:16px 24px 24px;gap:0;border-bottom:1px solid var(--borde);box-shadow:var(--s-lg);}
+      .nav-menu.open{display:flex;}
+      .nav-menu a{padding:12px 16px;font-size:.925rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="Retail20inversiones" class="logo-img"
+             onerror="this.closest('.logo-wrap').style.display='none';document.getElementById('logo-fb').style.display='flex';">
+      </div>
+      <div class="logo-fallback" id="logo-fb" style="display:none;">R20</div>
+      Retail20inversiones
+    </a>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html#inicio">Inicio</a></li>
+      <li><a href="index.html#pasos">Primeros pasos</a></li>
+      <li><a href="index.html#hoja-ruta">Estrategia</a></li>
+      <li><a href="index.html#recursos">Videos</a></li>
+      <li><a href="index.html#calculadora">Calculadora</a></li>
+      <li><a href="monitor.html">Instrumentos</a></li>
+      <li><a href="fondos.html">Fondos Comunes de Inversi&#243;n</a></li>
+      <li><a href="on.html" class="on">Obligaciones Negociables</a></li>
+      <li><a href="rv.html">Renta Variable</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+    <a href="monitor.html" class="nav-cta" style="background:var(--cs);color:var(--cp-dark);margin-right:8px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Monitor
+    </a>
+    <a href="https://clientes.balanz.com/auth/login" target="_blank" rel="noopener noreferrer" class="nav-cta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Acceder a Balanz
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir men&#250;" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap page-hero-inner">
+    <div class="page-hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      Renta Fija
+    </div>
+    <h1>Obligaciones<br>Negociables</h1>
+    <p>Bonos corporativos argentinos en d&#243;lares: invert&#237; con condiciones claras, renta predecible y protecci&#243;n real contra la inflaci&#243;n del d&#243;lar.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:8px 16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span style="font-size:.8rem;font-weight:600;color:#fff;">Inversiones en USD</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:8px 16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span style="font-size:.8rem;font-weight:600;color:#fff;">Renta Fija en USD</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:8px 16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span style="font-size:.8rem;font-weight:600;color:#fff;">Rescate a 24hs</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:8px 16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span style="font-size:.8rem;font-weight:600;color:#fff;">Empresas argentinas l&#237;deres</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:8px 16px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cs)" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span style="font-size:.8rem;font-weight:600;color:#fff;">Ganarle a la inflaci&#243;n en USD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 1: ¿POR QUÉ NO ALCANZA CON AHORRAR EN DÓLARES? -->
+<section class="sec" id="dolar">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="intro-texto">
+        <div class="sec-badge">El problema</div>
+        <h2>&#191;Por qu&#233; no alcanza con<br>ahorrar en d&#243;lares?</h2>
+        <p>En Argentina, el d&#243;lar es nuestro refugio hist&#243;rico. Y con raz&#243;n: el peso no sirve como reserva de valor en el largo plazo. La inflaci&#243;n local destruye el poder adquisitivo del peso de manera acelerada.</p>
+        <p>Sin embargo, muchas veces pasamos por alto algo importante: <strong>el d&#243;lar tambi&#233;n pierde poder adquisitivo</strong>. La inflaci&#243;n en Estados Unidos es mucho menor que la local, pero existe, y sus efectos se acumulan con el paso de los a&#241;os.</p>
+        <p>Quien guard&#243; billetes debajo del colch&#243;n en d&#243;lares desde el a&#241;o 2000 no conserv&#243; su poder de compra: lo fue perdiendo silenciosamente, sin darse cuenta.</p>
+
+        <div class="stat-callout">
+          <div class="stat-callout-num" style="color:#dc2626;">-49%</div>
+          <div class="stat-callout-label">
+            <strong>De poder adquisitivo perdido desde el a&#241;o 2000</strong>
+            La inflaci&#243;n acumulada en EE.UU. ronda el 49%. USD 100.000 guardados en 2000 equivalen hoy a solo USD 67.000 en t&#233;rminos de compra real.
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-title">Poder adquisitivo del d&#243;lar</div>
+        <div class="chart-card-subtitle">USD 100.000 guardados en 2000 &#8594; cu&#225;nto valen hoy sin invertir</div>
+        <div class="chart-wrap">
+          <canvas id="ppChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="chart-leg-item">
+            <div class="chart-leg-dot" style="background:#3b82f6;"></div>
+            Poder adquisitivo real
+          </div>
+          <div class="chart-leg-item">
+            <div class="chart-leg-dot" style="background:rgba(239,68,68,.25);border:1px dashed #dc2626;"></div>
+            Poder adquisitivo perdido
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSICIÓN: CÓMO INVERTIR LOS DÓLARES -->
+<section class="sec sec-alt" id="transicion" style="padding:72px 0;">
+  <div class="wrap">
+    <div class="pregunta-box">
+      <div class="pregunta-box-inner">
+        <div class="sec-badge" style="background:rgba(201,168,76,.18);color:var(--cs);margin-bottom:20px;">La soluci&#243;n</div>
+        <h2>Si guardar d&#243;lares hace que pierdan valor,<br>&#191;c&#243;mo los <em>hacemos crecer</em>?</h2>
+        <p>La respuesta est&#225; en el mundo de la <strong style="color:var(--cs);">renta fija</strong>. Invertir en instrumentos que nos paguen una tasa en d&#243;lares nos permite no solo preservar el poder adquisitivo de nuestros ahorros, sino incrementarlo por encima de la inflaci&#243;n del d&#243;lar.</p>
+        <div class="pregunta-arrow">
+          <div class="pregunta-arrow-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 3: QUÉ SON LAS ONs -->
+<section class="sec" id="on">
+  <div class="wrap">
+    <div class="rf-intro-grid">
+      <div class="rf-intro">
+        <div class="sec-badge">Renta Fija</div>
+        <h2>&#191;Qu&#233; son las Obligaciones Negociables?</h2>
+        <p>Las <strong>Obligaciones Negociables (ONs)</strong> son bonos emitidos por empresas argentinas. Cuando suscrib&#237;s una ON, le est&#225;s prestando dinero a esa empresa a cambio de una renta peri&#243;dica en d&#243;lares durante un plazo determinado.</p>
+        <p>A diferencia de la bolsa, donde el precio de las acciones var&#237;a seg&#250;n el mercado, en las ONs el inversor conoce de antemano todas las condiciones de la inversi&#243;n: <strong>la tasa anual, el plazo, la frecuencia de pago de intereses y el cronograma de amortizaci&#243;n del capital</strong>. Esto las convierte en una herramienta ideal para quienes buscan estabilidad y previsibilidad.</p>
+        <p>El objetivo es claro: <strong>generar un rendimiento en d&#243;lares superior a la inflaci&#243;n americana</strong>, preservando e incrementando el poder adquisitivo de los ahorros con el paso del tiempo.</p>
+      </div>
+      <div>
+        <div class="rf-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/5D0l6SUwvPI" title="&#191;Qu&#233; es la Renta Fija (ON)?" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="rf-video-cap">Video: &#191;Qu&#233; es la Renta Fija (ON)?</div>
+      </div>
+    </div>
+
+    <div class="liq-grid" style="grid-template-columns:repeat(4,1fr);margin-top:0;">
+      <div class="liq-card" style="background:rgba(139,26,45,.05);border-color:rgba(139,26,45,.25);">
+        <div class="liq-card-icon" style="background:rgba(139,26,45,.1);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cp)" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="liq-card-titulo" style="color:var(--cp);">Inversi&#243;n y renta en USD</div>
+        <div class="liq-card-desc">Los cupones de inter&#233;s y el capital se pagan en d&#243;lares, protegiendo tus ahorros frente a la depreciaci&#243;n del peso.</div>
+      </div>
+      <div class="liq-card verde">
+        <div class="liq-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--verde)" stroke-width="2.2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <div class="liq-card-titulo">Siempre pod&#233;s vender antes</div>
+        <div class="liq-card-desc">Las ONs cotizan en BYMA y MAE todos los d&#237;as. <strong>Siempre pod&#233;s disponer de tu capital antes del vencimiento</strong> vendi&#233;ndola en el mercado secundario.</div>
+      </div>
+      <div class="liq-card azul">
+        <div class="liq-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="liq-card-titulo">Renta fija y predecible</div>
+        <div class="liq-card-desc">Desde el d&#237;a 1 sab&#233;s exactamente cu&#225;nto vas a cobrar en cada cup&#243;n y en qu&#233; fecha. <strong>Sin sorpresas</strong>: se acredita autom&#225;ticamente cada semestre.</div>
+      </div>
+      <div class="liq-card gold">
+        <div class="liq-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cs-dark)" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="liq-card-titulo">Horizonte m&#237;nimo: 1 a&#241;o</div>
+        <div class="liq-card-desc"><strong>Lo ideal es pensar en este instrumento con un horizonte de m&#237;nimo 1 a&#241;o.</strong> Cuanto m&#225;s tiempo, m&#225;s se aprovecha la acumulaci&#243;n de cupones.</div>
+      </div>
+    </div>
+
+    <!-- Empresas emisoras -->
+    <div style="margin-top:52px;">
+      <div class="sec-badge">Empresas emisoras</div>
+      <h3 style="font-size:1.2rem;font-weight:700;color:var(--texto);margin:10px 0 6px;">ONs de empresas argentinas l&#237;deres</h3>
+      <p style="font-size:.9rem;color:var(--texto-suave);max-width:600px;line-height:1.7;">Existen ONs emitidas por empresas de distintos sectores de la econom&#237;a. A continuaci&#243;n, algunos de los emisores m&#225;s relevantes del mercado local:</p>
+
+      <div class="empresas-grid">
+        <div class="empresa-card e-energia">
+          <div class="empresa-sector">Energ&#237;a</div>
+          <div class="empresa-nombre">YPF</div>
+          <div class="empresa-ticker">Oil &amp; Gas</div>
+        </div>
+        <div class="empresa-card e-energia">
+          <div class="empresa-sector">Energ&#237;a</div>
+          <div class="empresa-nombre">Pampa Energ&#237;a</div>
+          <div class="empresa-ticker">Oil &amp; Gas</div>
+        </div>
+        <div class="empresa-card e-energia">
+          <div class="empresa-sector">Energ&#237;a</div>
+          <div class="empresa-nombre">Vista Energy</div>
+          <div class="empresa-ticker">Oil &amp; Gas</div>
+        </div>
+        <div class="empresa-card e-consumo">
+          <div class="empresa-sector">Consumo masivo</div>
+          <div class="empresa-nombre">Arcor</div>
+          <div class="empresa-ticker">Alimentos &amp; bebidas</div>
+        </div>
+        <div class="empresa-card e-telecom">
+          <div class="empresa-sector">Telecomunicaciones</div>
+          <div class="empresa-nombre">Telecom</div>
+          <div class="empresa-ticker">Conectividad &amp; medios</div>
+        </div>
+        <div class="empresa-card e-financiero">
+          <div class="empresa-sector">Financiero</div>
+          <div class="empresa-nombre">Banco Macro</div>
+          <div class="empresa-ticker">Banca privada</div>
+        </div>
+        <div class="empresa-card e-financiero">
+          <div class="empresa-sector">Financiero</div>
+          <div class="empresa-nombre">Banco Galicia</div>
+          <div class="empresa-ticker">Banca privada</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CASHFLOW EJEMPLO: YPF YM39O ── -->
+    <div style="margin-top:64px;" id="cashflow">
+      <div class="sec-badge" style="background:rgba(245,158,11,.12);color:#b45309;">Ejemplo real</div>
+      <h3 style="font-size:1.3rem;font-weight:700;color:var(--texto);margin:10px 0 6px;">&#191;C&#243;mo funciona en la pr&#225;ctica?</h3>
+      <p style="font-size:.92rem;color:var(--texto-suave);max-width:660px;line-height:1.7;margin-bottom:28px;">Veamos un caso concreto: la ON de YPF con ticker YM39O. Tasa fija del 8,75% anual, pagadera en cuotas semestrales, con vencimiento el 22 de julio de 2030.</p>
+
+      <!-- ON header card -->
+      <div class="cf-header-card">
+        <div class="cf-logo-circle">YPF</div>
+        <div>
+          <div class="cf-on-nombre">YPF S.A. &#8212; Obligaci&#243;n Negociable</div>
+          <div class="cf-on-ticker">YM39O &nbsp;|&nbsp; Emisi&#243;n en USD</div>
+        </div>
+        <div class="cf-specs">
+          <div class="cf-spec">
+            <div class="cf-spec-val">8,75%</div>
+            <div class="cf-spec-label">Tasa anual fija</div>
+          </div>
+          <div class="cf-spec">
+            <div class="cf-spec-val">Semestral</div>
+            <div class="cf-spec-label">Frecuencia de cupones</div>
+          </div>
+          <div class="cf-spec">
+            <div class="cf-spec-val">22/07/2030</div>
+            <div class="cf-spec-label">Vencimiento</div>
+          </div>
+          <div class="cf-spec">
+            <div class="cf-spec-val" style="color:var(--verde);">~$4.375</div>
+            <div class="cf-spec-label">Renta total por USD 10.000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar chart of payments -->
+      <div class="cf-chart-card">
+        <div class="cf-chart-card-title">Flujo de pagos &#8212; Nominal USD 10.000</div>
+        <canvas id="cfChart"></canvas>
+      </div>
+
+      <!-- Cashflow table -->
+      <div class="cf-table-wrap">
+        <div style="overflow-x:auto;">
+          <table class="cf-table">
+            <thead>
+              <tr>
+                <th>Fecha Cup&#243;n</th>
+                <th>Renta (USD)</th>
+                <th>Amortizaci&#243;n (USD)</th>
+                <th>Total cobrado (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>22/01/2026</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/07/2026</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/01/2027</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/07/2027</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/01/2028</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/07/2028</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/01/2029</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/07/2029</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr><td>22/01/2030</td><td class="cf-renta">437,50</td><td>&#8212;</td><td>437,50</td></tr>
+              <tr class="cf-final"><td>22/07/2030 &#9733; Vencimiento</td><td class="cf-renta">437,50</td><td class="cf-amort">10.000,00</td><td>10.437,50</td></tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Total</td>
+                <td class="cf-renta">4.375,00</td>
+                <td class="cf-amort">10.000,00</td>
+                <td>14.375,00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p style="font-size:.72rem;color:var(--texto-claro);padding:10px 16px 14px;font-style:italic;">* Ejemplo ilustrativo con cuotas uniformes de $437,50 (8,75% anual / 2). El cashflow real puede variar levemente seg&#250;n convenci&#243;n de d&#237;as de cada cup&#243;n.</p>
+        </div>
+      </div>
+
+      <!-- Liquidity + horizon callouts -->
+      <div class="liq-grid">
+        <div class="liq-card verde">
+          <div class="liq-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--verde)" stroke-width="2.2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </div>
+          <div class="liq-card-titulo">Siempre pod&#233;s vender antes</div>
+          <div class="liq-card-desc">A pesar de tener fecha de vencimiento, las ONs cotizan en BYMA y MAE todos los d&#237;as. <strong>Siempre pod&#233;s disponer de tu capital antes del vencimiento</strong> vendiéndola en el mercado secundario al precio del momento.</div>
+        </div>
+        <div class="liq-card azul">
+          <div class="liq-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="liq-card-titulo">Renta fija: sab&#233;s exactamente lo que vas a cobrar</div>
+          <div class="liq-card-desc">Desde el momento en que suscrib&#237;s, ya sab&#233;s cu&#225;nto vas a cobrar en cada cup&#243;n y en qu&#233; fecha. <strong>No hay sorpresas</strong>: la renta es fija, predecible y se acredita autom&#225;ticamente en tu cuenta cada semestre.</div>
+        </div>
+        <div class="liq-card gold">
+          <div class="liq-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cs-dark)" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="liq-card-titulo">Horizonte m&#237;nimo: 1 a&#241;o</div>
+          <div class="liq-card-desc">Al ser una tasa anual, <strong>lo ideal es pensar en este instrumento con un horizonte de m&#237;nimo 1 a&#241;o</strong>. Cuanto m&#225;s tiempo se mantiene la inversi&#243;n, m&#225;s se aprovecha la tasa fija y la acumulaci&#243;n de cupones.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="on-cta-box">
+      <div>
+        <h3>&#191;Quer&#233;s invertir en Obligaciones Negociables?</h3>
+        <p>Comunicate con tu asesor para conocer las ONs disponibles hoy, sus tasas, plazos y armar una estrategia adaptada a tus objetivos.</p>
+      </div>
+      <a href="index.html#contacto" class="on-cta-btn">
+        Contactar a tu asesor
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  /* Nav scroll */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  /* Mobile menu */
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('nav-menu');
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.nav-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', false);
+    });
+  });
+
+  /* ── Gráfico cashflow YM39O ── */
+  (function() {
+    const canvas = document.getElementById('cfChart');
+    const dpr = window.devicePixelRatio || 1;
+
+    const payments = [
+      { label:'Ene 26', renta:437.50, amort:0 },
+      { label:'Jul 26', renta:437.50, amort:0 },
+      { label:'Ene 27', renta:437.50, amort:0 },
+      { label:'Jul 27', renta:437.50, amort:0 },
+      { label:'Ene 28', renta:437.50, amort:0 },
+      { label:'Jul 28', renta:437.50, amort:0 },
+      { label:'Ene 29', renta:437.50, amort:0 },
+      { label:'Jul 29', renta:437.50, amort:0 },
+      { label:'Ene 30', renta:437.50, amort:0 },
+      { label:'Jul 30\n(vto.)', renta:437.50, amort:10000 },
+    ];
+
+    function draw() {
+      const W = canvas.parentElement.clientWidth;
+      const H = Math.round(W * 0.38);
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const pad = { top:28, right:16, bottom:40, left:56 };
+      const cw = W - pad.left - pad.right;
+      const ch = H - pad.top  - pad.bottom;
+
+      const maxVal = 11000;
+      const n = payments.length;
+      const groupW = cw / n;
+      const barW = Math.min(groupW * 0.55, 44);
+
+      function bx(i) { return pad.left + (i + 0.5) * groupW; }
+      function by(v) { return pad.top + ch - (v / maxVal) * ch; }
+
+      ctx.clearRect(0, 0, W, H);
+
+      /* Horizontal grid */
+      const gridVals = [2000, 4000, 6000, 8000, 10000];
+      ctx.font = `500 ${Math.max(9,W*0.019)}px Inter,system-ui,sans-serif`;
+      gridVals.forEach(v => {
+        const y = by(v);
+        ctx.strokeStyle = 'rgba(139,26,45,.07)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cw, y); ctx.stroke();
+        ctx.fillStyle = '#9a8a8c';
+        ctx.textAlign = 'right';
+        ctx.fillText('$' + (v >= 1000 ? (v/1000)+'k' : v), pad.left - 6, y + 4);
+      });
+
+      /* Bars */
+      payments.forEach((p, i) => {
+        const x = bx(i) - barW / 2;
+        const isFinal = i === payments.length - 1;
+
+        if (p.amort > 0) {
+          /* Capital return part (blue) */
+          const yA = by(p.amort + p.renta);
+          const hA = by(p.renta) - by(p.amort + p.renta);
+          const gradA = ctx.createLinearGradient(0, yA, 0, yA + hA);
+          gradA.addColorStop(0, '#1d4ed8');
+          gradA.addColorStop(1, '#3b82f6');
+          ctx.fillStyle = gradA;
+          ctx.beginPath();
+          ctx.roundRect(x, yA, barW, hA, [4, 4, 0, 0]);
+          ctx.fill();
+        }
+
+        /* Renta part */
+        const yR = by(p.renta);
+        const hR = ch - (yR - pad.top);
+        const gradR = ctx.createLinearGradient(0, yR, 0, yR + hR);
+        if (isFinal) {
+          gradR.addColorStop(0, '#B8963E');
+          gradR.addColorStop(1, '#C9A84C');
+        } else {
+          gradR.addColorStop(0, '#16a34a');
+          gradR.addColorStop(1, '#22c55e');
+        }
+        ctx.fillStyle = gradR;
+        ctx.beginPath();
+        if (p.amort > 0) {
+          ctx.rect(x, yR, barW, hR);
+        } else {
+          ctx.roundRect(x, yR, barW, hR, [4, 4, 0, 0]);
+        }
+        ctx.fill();
+
+        /* Value label on top of bar */
+        const topY = p.amort > 0 ? by(p.amort + p.renta) : by(p.renta);
+        const totalVal = p.renta + p.amort;
+        ctx.fillStyle = isFinal ? '#1d4ed8' : '#1e1a1b';
+        ctx.font = `700 ${Math.max(8,W*0.019)}px Inter,system-ui,sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText('$' + totalVal.toLocaleString('es-AR', {minimumFractionDigits:1, maximumFractionDigits:1}), bx(i), topY - 6);
+
+        /* X label */
+        ctx.fillStyle = '#9a8a8c';
+        ctx.font = `500 ${Math.max(8,W*0.018)}px Inter,system-ui,sans-serif`;
+        const lines = p.label.split('\n');
+        lines.forEach((line, li) => {
+          ctx.fillText(line, bx(i), H - pad.bottom + 14 + li * 11);
+        });
+      });
+
+      /* Legend */
+      const legY = 10;
+      const items = [
+        { color:'#22c55e', label:'Renta (interés)' },
+        { color:'#3b82f6', label:'Amortización (capital)' },
+      ];
+      let legX = pad.left;
+      items.forEach(item => {
+        ctx.fillStyle = item.color;
+        ctx.beginPath(); ctx.roundRect(legX, legY, 10, 10, 3); ctx.fill();
+        ctx.fillStyle = '#5a4e50';
+        ctx.font = `500 ${Math.max(9,W*0.018)}px Inter,system-ui,sans-serif`;
+        ctx.textAlign = 'left';
+        ctx.fillText(item.label, legX + 14, legY + 9);
+        legX += ctx.measureText(item.label).width + 30;
+      });
+    }
+
+    draw();
+    let raf;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(draw);
+    });
+  })();
+
+  /* ── Gráfico poder adquisitivo ── */
+  (function() {
+    const canvas = document.getElementById('ppChart');
+    const dpr = window.devicePixelRatio || 1;
+
+    /* Poder adquisitivo de USD 100.000 desde 2000 (inflación acumulada EE.UU. ~49%) */
+    const rawData = [
+      [2000,100000],[2001,97000],[2002,96000],[2003,94000],[2004,92000],
+      [2005,90000],[2006,88000],[2007,86000],[2008,83000],[2009,84000],
+      [2010,82000],[2011,80000],[2012,78000],[2013,77000],[2014,76000],
+      [2015,76000],[2016,75000],[2017,74000],[2018,72000],[2019,71000],
+      [2020,70000],[2021,68000],[2022,67000],[2023,67000],[2024,67000]
+    ];
+
+    function fmt(v) {
+      return '$' + (v/1000).toFixed(0) + 'k';
+    }
+
+    function draw() {
+      const W = canvas.parentElement.clientWidth;
+      const H = Math.round(W * 0.48);
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const pad = { top:20, right:24, bottom:36, left:58 };
+      const cw = W - pad.left - pad.right;
+      const ch = H - pad.top  - pad.bottom;
+
+      const minY = 55000, maxY = 105000;
+      const minX = 2000, maxX = 2024;
+
+      function px(year) { return pad.left + (year - minX) / (maxX - minX) * cw; }
+      function py(val)  { return pad.top  + (1 - (val - minY) / (maxY - minY)) * ch; }
+
+      ctx.clearRect(0, 0, W, H);
+
+      /* Grid lines */
+      ctx.strokeStyle = 'rgba(139,26,45,.07)';
+      ctx.lineWidth = 1;
+      [50000, 60000, 70000, 80000, 90000, 100000].forEach(v => {
+        ctx.beginPath();
+        ctx.moveTo(pad.left, py(v));
+        ctx.lineTo(pad.left + cw, py(v));
+        ctx.stroke();
+        ctx.fillStyle = '#9a8a8c';
+        ctx.font = `500 ${Math.max(9,W*0.019)}px Inter,system-ui,sans-serif`;
+        ctx.textAlign = 'right';
+        ctx.fillText(fmt(v), pad.left - 5, py(v) + 4);
+      });
+
+      /* X labels */
+      ctx.fillStyle = '#9a8a8c';
+      ctx.font = `500 ${Math.max(9,W*0.019)}px Inter,system-ui,sans-serif`;
+      ctx.textAlign = 'center';
+      [2000, 2005, 2010, 2015, 2020, 2024].forEach(yr => {
+        ctx.fillText(yr, px(yr), H - pad.bottom + 18);
+      });
+
+      /* Lost purchasing power area (red fill) */
+      ctx.beginPath();
+      ctx.moveTo(px(rawData[0][0]), py(rawData[0][1]));
+      rawData.forEach(([yr, val]) => ctx.lineTo(px(yr), py(val)));
+      ctx.lineTo(px(rawData[rawData.length-1][0]), py(100000));
+      ctx.lineTo(px(rawData[0][0]), py(100000));
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(239,68,68,.1)';
+      ctx.fill();
+
+      /* Retained value fill (blue) */
+      ctx.beginPath();
+      ctx.moveTo(px(rawData[0][0]), py(rawData[0][1]));
+      rawData.forEach(([yr, val]) => ctx.lineTo(px(yr), py(val)));
+      ctx.lineTo(px(rawData[rawData.length-1][0]), py(minY));
+      ctx.lineTo(px(rawData[0][0]), py(minY));
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
+      grad.addColorStop(0, 'rgba(59,130,246,.22)');
+      grad.addColorStop(1, 'rgba(59,130,246,.04)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      /* Line */
+      ctx.beginPath();
+      rawData.forEach(([yr, val], i) => {
+        if (i === 0) ctx.moveTo(px(yr), py(val));
+        else ctx.lineTo(px(yr), py(val));
+      });
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      /* Annotations */
+      const fsize = Math.max(10, W * 0.024);
+      ctx.font = `700 ${fsize}px Inter,system-ui,sans-serif`;
+
+      /* Start dot + label */
+      ctx.beginPath();
+      ctx.arc(px(2000), py(100000), 5, 0, Math.PI*2);
+      ctx.fillStyle = '#3b82f6';
+      ctx.fill();
+      ctx.fillStyle = '#1e1a1b';
+      ctx.textAlign = 'left';
+      ctx.fillText('$100.000', px(2000) + 8, py(100000) - 6);
+
+      /* End dot + label */
+      const last = rawData[rawData.length-1];
+      ctx.beginPath();
+      ctx.arc(px(last[0]), py(last[1]), 5, 0, Math.PI*2);
+      ctx.fillStyle = '#3b82f6';
+      ctx.fill();
+      ctx.fillStyle = '#dc2626';
+      ctx.textAlign = 'right';
+      ctx.fillText('$67.000', px(last[0]) - 8, py(last[1]) - 6);
+
+      /* Loss label in middle of red area */
+      const midYr = 2012;
+      const midVal = rawData.find(d => d[0] === midYr)[1];
+      const lossY = py((midVal + 100000) / 2);
+      ctx.fillStyle = 'rgba(220,38,38,.65)';
+      ctx.font = `600 ${Math.max(9,W*0.02)}px Inter,system-ui,sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('Poder adquisitivo perdido', px(midYr), lossY);
+    }
+
+    draw();
+    let raf;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(draw);
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Vidriera de Instrumentos &#8212; Retail20inversiones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;scroll-padding-top:130px;}
+    body{font-family:'Inter',system-ui,sans-serif;background:#0b1426;color:#e2e8f0;line-height:1.6;-webkit-font-smoothing:antialiased;}
+    img{max-width:100%;height:auto;display:block;}
+    a{color:inherit;text-decoration:none;}
+    .sec{padding:0;}
+    .wrap{max-width:1400px;margin:0 auto;padding:0;}
+
+    /* ===== NAVBAR (dark) ===== */
+    .mnav{position:sticky;top:0;z-index:1000;background:rgba(11,20,38,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);}
+    .mnav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;padding:0 24px;}
+    .mnav-logo{display:flex;align-items:center;gap:10px;font-size:.95rem;font-weight:700;color:#fff;flex-shrink:0;}
+    .mnav-logo-mark{width:34px;height:34px;border-radius:8px;border:2px solid #C9A84C;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;color:#C9A84C;flex-shrink:0;}
+    .mnav-menu{display:flex;align-items:center;gap:2px;list-style:none;flex-wrap:wrap;}
+    .mnav-menu a{display:block;padding:7px 10px;font-size:.78rem;font-weight:500;color:rgba(226,232,240,.72);border-radius:7px;transition:all .25s;white-space:nowrap;}
+    .mnav-menu a:hover,.mnav-menu a.on{color:#fff;background:rgba(255,255,255,.08);font-weight:600;}
+    .mnav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;background:#C9A84C;color:#0b1426!important;border-radius:7px;font-size:.79rem;font-weight:700;transition:all .25s;white-space:nowrap;}
+    .mnav-cta:hover{background:#dcbb5c;transform:translateY(-1px);}
+
+    /* ===== FILTER BAR ===== */
+    .filtros{position:sticky;top:64px;z-index:900;background:rgba(19,31,51,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.07);}
+    .filtros-inner{max-width:1360px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+    .fgroup{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+    .flabel{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(226,232,240,.35);margin-right:2px;}
+    .fpill{font-family:inherit;font-size:11.5px;font-weight:600;color:rgba(226,232,240,.62);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:5px 12px;cursor:pointer;transition:all .2s;}
+    .fpill:hover{color:#fff;border-color:rgba(201,168,76,.45);}
+    .fpill.active{background:#C9A84C;border-color:#C9A84C;color:#0b1426;}
+    .fdiv{width:1px;height:20px;background:rgba(255,255,255,.09);flex-shrink:0;}
+    .fcount{margin-left:auto;font-size:11px;color:rgba(226,232,240,.4);white-space:nowrap;}
+    .card.oculto{display:none!important;}
+
+    /* ===== Cards nuevas (ETFs / comparador) ===== */
+    .mapa-wrap .card-etfs      { grid-area: etfs; }
+    .mapa-wrap .card-comparador{ grid-area: comparador; }
+    .etf-group{margin-bottom:9px;}
+    .etf-group-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(226,232,240,.35);margin-bottom:5px;}
+    .etf-pills{display:flex;flex-wrap:wrap;gap:5px;}
+    .etf-pill{font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:rgba(226,232,240,.8);}
+    .etf-pill.gold{background:rgba(201,168,76,.13);border-color:rgba(201,168,76,.35);color:#C9A84C;}
+    .comp-table{width:100%;border-collapse:collapse;}
+    .comp-table th{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(226,232,240,.35);text-align:left;padding:0 6px 7px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+    .comp-table td{font-size:11px;color:rgba(226,232,240,.78);padding:7px 6px 7px 0;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+    .comp-table tbody tr:last-child td{border-bottom:none;}
+    .comp-inst{font-weight:700;color:#fff;font-size:11.5px;}
+    .dot-riesgo{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+    .r-bajo{background:#10b981;} .r-medio{background:#d97706;} .r-alto{background:#ef4444;}
+
+    /* ===== MAPA DE ACCIONES POR SECTOR ===== */
+    .sectormap{display:flex;flex-wrap:wrap;gap:7px;}
+    .sm-sector{flex-grow:var(--n);flex-basis:calc(var(--n) * 21px);min-width:150px;border-radius:8px;padding:7px;border:1px solid rgba(255,255,255,.08);background:var(--sbg);}
+    .sm-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--sfg);margin-bottom:6px;padding:0 2px;}
+    .sm-head span{font-size:8.5px;font-weight:600;opacity:.6;}
+    .sm-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:4px;}
+    .sm-tile{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.06);border-radius:5px;padding:5px 3px;text-align:center;transition:all .18s;cursor:default;}
+    .sm-tile:hover{background:rgba(255,255,255,.11);border-color:var(--sfg);transform:translateY(-1px);}
+    .sm-ticker{display:block;font-size:10.5px;font-weight:800;color:#fff;letter-spacing:.01em;line-height:1.2;}
+    .sm-name{display:block;font-size:7.5px;color:rgba(226,232,240,.55);line-height:1.25;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+    /* ===== Destacado tag ===== */
+    .destacado-tag{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#B8963E,#C9A84C);color:#0b1426;font-size:8.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+
+    /* ===== Footer / disclaimer ===== */
+    .mfoot{border-top:1px solid rgba(255,255,255,.07);margin-top:8px;}
+    .mfoot-inner{max-width:1360px;margin:0 auto;padding:24px 20px 40px;}
+    .mfoot p{font-size:10.5px;color:rgba(226,232,240,.32);line-height:1.7;margin-bottom:8px;}
+
+    @media(max-width:900px){
+      .mnav-inner{height:auto;padding:10px 16px;flex-wrap:wrap;}
+      .mnav-menu{display:none;}
+      .filtros{position:static;}
+      .filtros-inner{gap:10px;}
+      .fcount{margin-left:0;width:100%;}
+    }
+
+        /* ============================================================
+           MAPA DE OPORTUNIDADES — SCOPED DARK THEME
+           ============================================================ */
+        .mapa-wrap {
+            --bg:       #0b1426;
+            --card:     #131f33;
+            --card2:    #162540;
+            --borde:    rgba(255,255,255,.07);
+            --borde2:   rgba(255,255,255,.14);
+            --text:     #e2e8f0;
+            --dim:      rgba(226,232,240,.55);
+            --faint:    rgba(226,232,240,.28);
+            --gold:     #C9A84C;
+            --golddim:  rgba(201,168,76,.18);
+            --bord:     #8B1A2D;
+            --pos:      #4ade80;
+            --neg:      #f87171;
+            --blue:     #60a5fa;
+            --r:        12px;
+            --r-sm:     8px;
+            --shadow:   0 4px 24px rgba(0,0,0,.35);
+            --font:     'Inter', system-ui, sans-serif;
+            background: #0b1426;
+            color: #e2e8f0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Mapa page header */
+        .mapa-wrap .mapa-page-header {
+            padding-top: 32px;
+            padding-bottom: 12px;
+            text-align: center;
+        }
+        .mapa-wrap .mapa-page-header-inner {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .mapa-wrap .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            background: var(--golddim);
+            border: 1px solid rgba(201,168,76,.3);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        .mapa-wrap .header-subtitle {
+            font-size: 12.5px;
+            color: var(--dim);
+            max-width: 560px;
+            line-height: 1.55;
+        }
+        .mapa-wrap .header-note {
+            font-size: 10.5px;
+            color: var(--faint);
+            letter-spacing: .03em;
+        }
+
+        /* Main grid */
+        .main-grid {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 20px 20px;
+            display: grid;
+            grid-template-columns: 340px 1fr 1fr;
+            grid-template-areas:
+                "indices   empresas  idea"
+                "quant     fondos    ons"
+                "benchmark benchmark cta";
+            gap: 14px;
+        }
+
+        /* Card base */
+        .mapa-wrap .card {
+            background: var(--card);
+            border-radius: var(--r);
+            border: 1px solid var(--borde);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .mapa-wrap .card:hover { border-color: var(--borde2); }
+
+        .mapa-wrap .card-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .mapa-wrap .card-title-left {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .mapa-wrap .card-icon { font-size: 14px; line-height: 1; }
+        .mapa-wrap .card-badge {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: .04em;
+        }
+        .mapa-wrap .badge-faint {
+            background: rgba(226,232,240,.07);
+            color: var(--faint);
+            border: 1px solid var(--borde);
+        }
+        .mapa-wrap .badge-gold {
+            background: var(--golddim);
+            color: var(--gold);
+            border: 1px solid rgba(201,168,76,.25);
+        }
+        .mapa-wrap .badge-blue {
+            background: rgba(96,165,250,.12);
+            color: var(--blue);
+            border: 1px solid rgba(96,165,250,.2);
+        }
+        .mapa-wrap .badge-navy {
+            background: rgba(11,20,38,.8);
+            color: var(--dim);
+            border: 1px solid var(--borde2);
+        }
+        .mapa-wrap .badge-amber {
+            background: rgba(251,191,36,.12);
+            color: #fbbf24;
+            border: 1px solid rgba(251,191,36,.2);
+        }
+        .mapa-wrap .badge-gray {
+            background: rgba(226,232,240,.08);
+            color: var(--dim);
+            border: 1px solid var(--borde);
+        }
+
+        /* Mini table */
+        .mapa-wrap .mini-table { width: 100%; border-collapse: collapse; }
+        .mapa-wrap .mini-table th {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--faint);
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            padding: 4px 6px;
+            text-align: left;
+        }
+        .mapa-wrap .mini-table th.r,
+        .mapa-wrap .mini-table td.r { text-align: right; }
+        .mapa-wrap .mini-table td {
+            padding: 6px 6px;
+            font-size: 12px;
+            border-top: 1px solid var(--borde);
+            color: var(--text);
+        }
+        .mapa-wrap .mini-table tbody tr:nth-child(even) td { background: rgba(255,255,255,.018); }
+        .mapa-wrap .mini-table tbody tr:hover td { background: rgba(255,255,255,.04); }
+
+        .mapa-wrap .num {
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .mapa-wrap .pos { color: var(--pos); }
+        .mapa-wrap .neg { color: var(--neg); }
+
+        .mapa-wrap .ticker-badge {
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(11,20,38,.8);
+            border: 1px solid rgba(201,168,76,.35);
+            color: var(--gold);
+            letter-spacing: .03em;
+            white-space: nowrap;
+        }
+
+        .mapa-wrap .divider { height: 1px; background: var(--borde); margin: 2px 0; }
+        .mapa-wrap .note-faint { font-size: 10px; color: var(--faint); letter-spacing: .02em; }
+
+        /* Grid areas */
+        .card-indices   { grid-area: indices; }
+        .card-empresas  { grid-area: empresas; }
+        .card-idea      { grid-area: idea; }
+        .card-quant     { grid-area: quant; }
+        .card-fondos    { grid-area: fondos; }
+        .card-ons       { grid-area: ons; }
+        .card-benchmark { grid-area: benchmark; }
+        .card-cta       { grid-area: cta; }
+
+        /* Card: Idea */
+        .mapa-wrap .card-idea {
+            border-left: 4px solid var(--gold);
+            background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, var(--card) 40%);
+            position: relative;
+            overflow: hidden;
+        }
+        .mapa-wrap .card-idea::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+        .mapa-wrap .idea-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+        .mapa-wrap .idea-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+            margin: 4px 0;
+        }
+        .mapa-wrap .idea-text {
+            font-size: 12px;
+            color: var(--dim);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .mapa-wrap .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .mapa-wrap .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 10.5px;
+            font-weight: 500;
+        }
+        .mapa-wrap .btn-full {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px;
+            border-radius: var(--r-sm);
+            background: var(--golddim);
+            border: 1px solid rgba(201,168,76,.35);
+            color: var(--gold);
+            font-size: 12.5px;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .2s, border-color .2s;
+            margin-top: auto;
+        }
+        .mapa-wrap .btn-full:hover {
+            background: rgba(201,168,76,.28);
+            border-color: rgba(201,168,76,.5);
+        }
+
+        /* Card: Quant */
+        .mapa-wrap .card-quant {
+            background: linear-gradient(145deg, #162540 0%, #131f33 60%);
+        }
+        .mapa-wrap .quant-top-badges { display: flex; gap: 6px; align-items: center; }
+        .mapa-wrap .quant-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -.02em;
+            line-height: 1.1;
+        }
+        .mapa-wrap .quant-subtitle { font-size: 11px; color: var(--dim); }
+        .mapa-wrap .quant-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+        .mapa-wrap .chip {
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 10.5px;
+            font-weight: 500;
+            background: rgba(255,255,255,.06);
+            border: 1px solid var(--borde2);
+            color: var(--dim);
+            white-space: nowrap;
+        }
+        .mapa-wrap .quant-chart-row { display: flex; align-items: center; gap: 14px; }
+        .mapa-wrap .quant-legend { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .mapa-wrap .legend-item { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--dim); }
+        .mapa-wrap .legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+        .mapa-wrap .legend-pct { margin-left: auto; font-variant-numeric: tabular-nums; font-size: 10px; color: var(--faint); }
+
+        .mapa-wrap .quant-pos-table { width: 100%; border-collapse: collapse; }
+        .mapa-wrap .quant-pos-table th {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--faint);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            padding: 3px 6px;
+            text-align: left;
+        }
+        .mapa-wrap .quant-pos-table td {
+            padding: 5px 6px;
+            border-top: 1px solid var(--borde);
+            font-size: 11.5px;
+        }
+        .mapa-wrap .quant-pos-table td.r { text-align: right; }
+        .mapa-wrap .peso-bar-wrap { display: flex; align-items: center; gap: 6px; }
+        .mapa-wrap .peso-bar { height: 3px; border-radius: 2px; background: var(--gold); opacity: .7; }
+
+        .mapa-wrap .btn-outline-sm {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border-radius: var(--r-sm);
+            background: transparent;
+            border: 1px solid var(--borde2);
+            color: var(--dim);
+            font-size: 11.5px;
+            font-weight: 500;
+            font-family: var(--font);
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color .2s, color .2s;
+            width: 100%;
+            justify-content: center;
+        }
+        .mapa-wrap .btn-outline-sm:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Quant show more */
+        .mapa-wrap .quant-hidden { display: none; }
+
+        /* Card: Fondos */
+        .mapa-wrap .fund-card {
+            padding: 10px;
+            border-radius: var(--r-sm);
+            border: 1px solid var(--borde);
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mapa-wrap .fund-card:hover { border-color: var(--borde2); background: rgba(255,255,255,.02); }
+        .mapa-wrap .fund-card.selected { border-color: var(--gold); background: var(--golddim); }
+        .mapa-wrap .fund-info { flex: 1; min-width: 0; }
+        .mapa-wrap .fund-name { font-size: 12.5px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mapa-wrap .fund-desc { font-size: 10px; color: var(--faint); margin-top: 1px; }
+        .mapa-wrap .fund-badges { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+        .mapa-wrap .fund-metrics { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+        .mapa-wrap .fund-metric { font-size: 10.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .mapa-wrap .fund-metric span { color: var(--faint); font-size: 9.5px; }
+
+        .mapa-wrap .fund-detail {
+            display: none;
+            padding: 12px;
+            border-radius: var(--r-sm);
+            background: rgba(255,255,255,.03);
+            border: 1px solid var(--borde2);
+            gap: 14px;
+            align-items: center;
+        }
+        .mapa-wrap .fund-detail.active { display: flex; }
+        .mapa-wrap .fund-detail-info { flex: 1; }
+        .mapa-wrap .fund-detail-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+        .mapa-wrap .fund-detail-legend { display: flex; flex-direction: column; gap: 4px; }
+        .mapa-wrap .fund-detail-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--dim); }
+        .mapa-wrap .fund-detail-pct { margin-left: auto; font-variant-numeric: tabular-nums; font-size: 11px; font-weight: 600; color: var(--text); }
+
+        /* Card: ONs */
+        .mapa-wrap .bonds-row { display: flex; gap: 10px; }
+        .mapa-wrap .bond-card {
+            flex: 1;
+            padding: 10px;
+            border-radius: var(--r-sm);
+            border: 1px solid var(--borde);
+            background: rgba(255,255,255,.02);
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .mapa-wrap .bond-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; flex-wrap: wrap; }
+        .mapa-wrap .bond-empresa { font-size: 12px; font-weight: 700; color: var(--text); }
+        .mapa-wrap .bond-badges { display: flex; gap: 4px; flex-wrap: wrap; }
+        .mapa-wrap .bond-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; }
+        .mapa-wrap .bond-metric-item { display: flex; flex-direction: column; gap: 1px; }
+        .mapa-wrap .bond-metric-label { font-size: 9px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; }
+        .mapa-wrap .bond-metric-val { font-size: 12px; font-weight: 600; color: var(--text); }
+        .mapa-wrap .bond-estilo {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            background: rgba(255,255,255,.05);
+            border: 1px solid var(--borde);
+            color: var(--dim);
+            align-self: flex-start;
+        }
+
+        .mapa-wrap .tir-compare {
+            padding: 10px;
+            border-radius: var(--r-sm);
+            background: rgba(255,255,255,.02);
+            border: 1px solid var(--borde);
+        }
+        .mapa-wrap .tir-compare-title { font-size: 10px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+        .mapa-wrap .tir-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .mapa-wrap .tir-bar-label { font-size: 10px; color: var(--dim); width: 80px; flex-shrink: 0; }
+        .mapa-wrap .tir-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; }
+        .mapa-wrap .tir-bar-fill { height: 100%; border-radius: 3px; transition: width .5s; }
+        .mapa-wrap .tir-bar-val { font-size: 10.5px; font-weight: 600; width: 32px; text-align: right; flex-shrink: 0; }
+
+        /* Card: Benchmark */
+        .mapa-wrap .card-benchmark { padding: 16px; }
+        .mapa-wrap .benchmark-layout { display: flex; gap: 20px; align-items: stretch; }
+        .mapa-wrap .benchmark-left { width: 30%; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+        .mapa-wrap .benchmark-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+        .mapa-wrap .stat-chip {
+            padding: 8px 12px;
+            border-radius: var(--r-sm);
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--borde);
+        }
+        .mapa-wrap .stat-chip-label { font-size: 9.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
+        .mapa-wrap .stat-chip-val { font-size: 16px; font-weight: 700; color: var(--text); }
+        .mapa-wrap .stat-chip-val.gold { color: var(--gold); }
+        .mapa-wrap .bench-quote {
+            font-size: 11px;
+            color: var(--faint);
+            font-style: italic;
+            line-height: 1.55;
+            margin-top: auto;
+            padding-top: 6px;
+            border-top: 1px solid var(--borde);
+        }
+
+        /* Card: CTA */
+        .mapa-wrap .card-cta {
+            background: linear-gradient(135deg, #1a0a12 0%, #2d0f1e 50%, #1a0a12 100%);
+            border: 1px solid rgba(139,26,45,.3);
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .mapa-wrap .cta-emoji { font-size: 36px; line-height: 1; margin-bottom: 4px; }
+        .mapa-wrap .cta-title { font-size: 20px; font-weight: 800; color: var(--text); }
+        .mapa-wrap .cta-text { font-size: 12px; color: var(--dim); line-height: 1.6; max-width: 220px; }
+        .mapa-wrap .cta-buttons { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .mapa-wrap .btn-outline-gold {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 16px;
+            border-radius: var(--r-sm);
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 12.5px;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .2s;
+        }
+        .mapa-wrap .btn-outline-gold:hover { background: var(--golddim); }
+        .mapa-wrap .btn-white-gold {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 16px;
+            border-radius: var(--r-sm);
+            background: var(--gold);
+            border: none;
+            color: #0b1426;
+            font-size: 12.5px;
+            font-weight: 700;
+            font-family: var(--font);
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity .2s;
+        }
+        .mapa-wrap .btn-white-gold:hover { opacity: .88; }
+
+        /* Mapa responsive */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-areas:
+                    "indices   empresas"
+                    "idea      idea"
+                    "quant     fondos"
+                    "ons       ons"
+                    "benchmark benchmark"
+                    "cta       cta";
+            }
+        }
+        @media (max-width: 640px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "indices"
+                    "empresas"
+                    "idea"
+                    "quant"
+                    "fondos"
+                    "ons"
+                    "benchmark"
+                    "cta";
+                padding: 0 12px 12px;
+            }
+            .mapa-wrap .bonds-row { flex-direction: column; }
+            .mapa-wrap .benchmark-layout { flex-direction: column; }
+            .mapa-wrap .benchmark-left { width: 100%; flex-direction: row; flex-wrap: wrap; }
+            .mapa-wrap .stat-chip { flex: 1; min-width: 120px; }
+        }
+
+
+        /* ===== Grilla ampliada (override del Mapa) ===== */
+        .main-grid {
+            max-width: 1360px;
+            grid-template-columns: 340px 1fr 1fr;
+            grid-template-areas:
+                "indices   empresas   empresas"
+                "quant     fondos     ons"
+                "idea      etfs       comparador"
+                "benchmark benchmark  cta";
+            padding: 0 20px 24px;
+        }
+        .mapa-wrap .card-benchmark { grid-area: benchmark; }
+        .mapa-wrap .card-cta { grid-area: cta; }
+        @media (max-width: 1100px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-areas:
+                    "empresas  empresas"
+                    "indices   idea"
+                    "quant     fondos"
+                    "ons       etfs"
+                    "comparador comparador"
+                    "benchmark benchmark"
+                    "cta       cta";
+            }
+        }
+        @media (max-width: 760px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "indices" "empresas" "idea" "quant"
+                    "fondos" "ons" "etfs" "comparador"
+                    "benchmark" "cta";
+            }
+        }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="mnav">
+  <div class="mnav-inner">
+    <a href="index.html" class="mnav-logo">
+      <span class="mnav-logo-mark">R20</span>
+      Retail20inversiones
+    </a>
+    <ul class="mnav-menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html#hoja-ruta">Estrategia</a></li>
+      <li><a href="index.html#calculadora">Calculadora</a></li>
+      <li><a href="fondos.html">Fondos</a></li>
+      <li><a href="on.html">Obligaciones Negociables</a></li>
+      <li><a href="rv.html">Renta Variable</a></li>
+      <li><a href="monitor.html" class="on">Instrumentos</a></li>
+    </ul>
+    <a href="index.html#contacto" class="mnav-cta">Hablar con un asesor</a>
+  </div>
+</nav>
+
+<div class="sec mapa-wrap" id="vidriera">
+  <div class="wrap">
+
+    <!-- ===== HEADER ===== -->
+    <div class="mapa-page-header">
+      <div class="mapa-page-header-inner">
+        <div class="header-badge">Vidriera de Instrumentos</div>
+        <div class="header-subtitle">Todo lo que vimos a lo largo del sitio, bajado a instrumentos concretos. Filtr&#225; por moneda, perfil y horizonte para encontrar los que se adaptan a vos.</div>
+        <div class="header-note">Datos referenciales &middot; Actualizaci&#243;n manual &middot; Julio 2026</div>
+      </div>
+    </div>
+
+    <!-- ===== FILTROS ===== -->
+    <div class="filtros">
+      <div class="filtros-inner">
+        <div class="fgroup">
+          <span class="flabel">Moneda</span>
+          <button class="fpill active" data-f="moneda" data-v="todos">Todas</button>
+          <button class="fpill" data-f="moneda" data-v="pesos">Pesos</button>
+          <button class="fpill" data-f="moneda" data-v="dolares">D&#243;lares</button>
+        </div>
+        <div class="fdiv"></div>
+        <div class="fgroup">
+          <span class="flabel">Perfil</span>
+          <button class="fpill active" data-f="perfil" data-v="todos">Todos</button>
+          <button class="fpill" data-f="perfil" data-v="conservador">Conservador</button>
+          <button class="fpill" data-f="perfil" data-v="moderado">Moderado</button>
+          <button class="fpill" data-f="perfil" data-v="agresivo">Agresivo</button>
+        </div>
+        <div class="fdiv"></div>
+        <div class="fgroup">
+          <span class="flabel">Horizonte</span>
+          <button class="fpill active" data-f="horizonte" data-v="todos">Todos</button>
+          <button class="fpill" data-f="horizonte" data-v="corto">Corto</button>
+          <button class="fpill" data-f="horizonte" data-v="mediano">Mediano</button>
+          <button class="fpill" data-f="horizonte" data-v="largo">Largo</button>
+        </div>
+        <div class="fdiv"></div>
+        <div class="fgroup">
+          <span class="flabel">Tipo</span>
+          <button class="fpill active" data-f="tipo" data-v="todos">Todos</button>
+          <button class="fpill" data-f="tipo" data-v="rv">Renta Variable</button>
+          <button class="fpill" data-f="tipo" data-v="fci">FCI</button>
+          <button class="fpill" data-f="tipo" data-v="on">ON</button>
+        </div>
+        <span class="fcount" id="fcount"></span>
+      </div>
+    </div>
+
+    <!-- ===== GRILLA ===== -->
+    <div class="main-grid">
+
+      <!-- 1. ÍNDICES / ETFs -->
+      <div class="card card-indices" data-tipo="rv" data-moneda="dolares" data-perfil="moderado agresivo" data-horizonte="largo">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#128202;</span>&#205;ndices globales</div>
+          <span class="card-badge badge-gold">CEDEARs de ETFs</span>
+        </div>
+        <table class="mini-table" id="v-indices-table">
+          <thead><tr><th>&#205;ndice</th><th>Qu&#233; incluye</th><th class="r">Riesgo</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div>
+          <div class="divider"></div>
+          <div class="note-faint" style="margin-top:6px;">Con un solo instrumento invert&#237;s en cientos de empresas.</div>
+        </div>
+        <a href="rv.html" class="btn-outline-sm">Ver Renta Variable &#8594;</a>
+      </div>
+
+      <!-- 2. EMPRESAS -->
+      <div class="card card-empresas" data-tipo="rv" data-moneda="dolares" data-perfil="agresivo" data-horizonte="largo">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#127970;</span>Mapa de acciones por sector</div>
+          <span class="card-badge badge-gold">CEDEARs</span>
+        </div>
+        <div class="sectormap" id="v-sectormap"></div>
+        <div class="note-faint" style="margin-top:8px;">Principales empresas de cada sector disponibles como CEDEAR desde Argentina. No es una recomendaci&#243;n de compra.</div>
+      </div>
+
+      <!-- 3. DESTACADO DEL MES -->
+      <div class="card card-idea" data-tipo="rv" data-moneda="dolares" data-perfil="moderado agresivo" data-horizonte="mediano largo">
+        <div>
+          <div class="idea-label">&#11088; DESTACADO DEL MES</div>
+          <div class="idea-title">Diversificar hacia renta variable global</div>
+          <div class="idea-text">Sumar exposici&#243;n internacional en d&#243;lares para sostener el crecimiento del patrimonio en el largo plazo, combinando &#237;ndices amplios con una selecci&#243;n de empresas l&#237;deres.</div>
+        </div>
+        <div class="pills">
+          <span class="pill badge-amber">Perfil: Moderado</span>
+          <span class="pill badge-blue">Horizonte: Mediano/Largo</span>
+          <span class="pill badge-gray">CEDEARs &middot; ETFs &middot; FCI</span>
+        </div>
+        <a href="index.html#contacto" class="btn-full">&#128172; Hablar con un asesor</a>
+      </div>
+
+      <!-- 4. QUANT SELECTION -->
+      <div class="card card-quant" data-tipo="rv" data-moneda="dolares" data-perfil="agresivo" data-horizonte="largo">
+        <div class="quant-top-badges">
+          <span class="card-badge badge-gold">PACK CEDEARS</span>
+          <span class="card-badge badge-navy">BALANZ</span>
+          <span class="destacado-tag">&#9733; Destacado</span>
+        </div>
+        <div>
+          <div class="quant-title">Quant Selection</div>
+          <div class="quant-subtitle">Modelo cuantitativo: mejor relaci&#243;n rendimiento/volatilidad frente al S&amp;P 500</div>
+        </div>
+        <div class="quant-chips">
+          <span class="chip">Perfil: Agresivo</span>
+          <span class="chip">Horizonte: Largo plazo</span>
+          <span class="chip">110 empresas evaluadas</span>
+          <span class="chip" style="color:var(--gold);">Criterio: Sharpe Ratio</span>
+        </div>
+        <div class="quant-chart-row">
+          <canvas id="v-quant-pie" width="90" height="90"></canvas>
+          <div class="quant-legend" id="v-quant-legend"></div>
+        </div>
+        <div>
+          <table class="quant-pos-table" id="v-quant-pos-table">
+            <thead><tr><th>Ticker</th><th>Empresa</th><th class="r">Peso%</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <a href="rv.html#quant" class="btn-outline-sm">Ver composici&#243;n completa &#8594;</a>
+      </div>
+
+      <!-- 5. FONDOS -->
+      <div class="card card-fondos" data-tipo="fci" data-moneda="pesos dolares" data-perfil="conservador moderado" data-horizonte="corto mediano">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#127974;</span>Fondos Comunes</div>
+          <span class="card-badge badge-faint" id="fondos-fecha">Cartera al 30.06.2026</span>
+        </div>
+        <div id="v-fondos-list" style="display:flex;flex-direction:column;gap:7px;"></div>
+        <div class="fund-detail" id="v-fund-detail">
+          <canvas id="v-fund-detail-donut" width="80" height="80"></canvas>
+          <div class="fund-detail-info">
+            <div class="fund-detail-title" id="v-fund-detail-title"></div>
+            <div class="fund-detail-legend" id="v-fund-detail-legend"></div>
+          </div>
+        </div>
+        <a href="fondos.html" class="btn-outline-sm">Ver Fondos Comunes &#8594;</a>
+      </div>
+
+      <!-- 6. ONs -->
+      <div class="card card-ons" data-tipo="on" data-moneda="dolares" data-perfil="conservador moderado" data-horizonte="mediano largo">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#128196;</span>Obligaciones Negociables</div>
+          <span class="card-badge badge-blue">Renta Fija USD</span>
+        </div>
+        <div class="bonds-row" id="v-bonds-row"></div>
+        <div class="tir-compare">
+          <div class="tir-compare-title">Comparaci&#243;n de cup&#243;n anual</div>
+          <div id="v-cupon-bars"></div>
+        </div>
+        <a href="on.html" class="btn-outline-sm">Ver Obligaciones Negociables &#8594;</a>
+      </div>
+
+      <!-- 7. ETFs TEMÁTICOS -->
+      <div class="card card-etfs" data-tipo="rv" data-moneda="dolares" data-perfil="moderado agresivo" data-horizonte="largo">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#127760;</span>ETFs disponibles</div>
+          <span class="card-badge badge-gold">v&#237;a CEDEAR</span>
+        </div>
+        <div class="etf-group">
+          <div class="etf-group-label">&#205;ndices amplios</div>
+          <div class="etf-pills">
+            <span class="etf-pill gold">S&amp;P 500</span>
+            <span class="etf-pill">Nasdaq 100</span>
+            <span class="etf-pill">Dow Jones</span>
+            <span class="etf-pill">MSCI World</span>
+          </div>
+        </div>
+        <div class="etf-group">
+          <div class="etf-group-label">Tem&#225;ticos / sectoriales</div>
+          <div class="etf-pills">
+            <span class="etf-pill">Inteligencia Artificial</span>
+            <span class="etf-pill">Energ&#237;a</span>
+            <span class="etf-pill">Salud</span>
+            <span class="etf-pill">Ciberseguridad</span>
+            <span class="etf-pill">Semiconductores</span>
+            <span class="etf-pill">Consumo</span>
+          </div>
+        </div>
+        <div class="note-faint">Un ETF replica un &#237;ndice o sector completo: en vez de comprar una empresa, invert&#237;s en una cartera entera con un solo instrumento.</div>
+        <a href="rv.html" class="btn-outline-sm">C&#243;mo funcionan &#8594;</a>
+      </div>
+
+      <!-- 8. COMPARADOR -->
+      <div class="card card-comparador">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#9878;</span>Comparador r&#225;pido</div>
+        </div>
+        <table class="comp-table">
+          <thead><tr><th>Instrumento</th><th>Moneda</th><th>Horizonte</th><th>Riesgo</th><th>Liquidez</th></tr></thead>
+          <tbody>
+            <tr><td class="comp-inst">FCI en Pesos</td><td>Pesos</td><td>D&#237;as a meses</td><td><span class="dot-riesgo r-bajo"></span>Bajo</td><td>24 hs</td></tr>
+            <tr><td class="comp-inst">FCI en USD</td><td>D&#243;lares</td><td>Meses</td><td><span class="dot-riesgo r-bajo"></span>Bajo</td><td>24 hs</td></tr>
+            <tr><td class="comp-inst">Obligaciones Neg.</td><td>D&#243;lares</td><td>1 a&#241;o +</td><td><span class="dot-riesgo r-medio"></span>Medio</td><td>Mercado</td></tr>
+            <tr><td class="comp-inst">CEDEARs</td><td>D&#243;lares</td><td>2 a&#241;os +</td><td><span class="dot-riesgo r-alto"></span>Alto</td><td>Mercado</td></tr>
+            <tr><td class="comp-inst">ETFs</td><td>D&#243;lares</td><td>2 a&#241;os +</td><td><span class="dot-riesgo r-medio"></span>Medio</td><td>Mercado</td></tr>
+            <tr><td class="comp-inst">Quant Selection</td><td>D&#243;lares</td><td>3-5 a&#241;os</td><td><span class="dot-riesgo r-alto"></span>Alto</td><td>Mercado</td></tr>
+          </tbody>
+        </table>
+        <div class="note-faint">La liquidez &laquo;Mercado&raquo; significa que pod&#233;s vender cualquier d&#237;a h&#225;bil al precio vigente.</div>
+      </div>
+
+      <!-- 9. CTA -->
+      <div class="card card-cta">
+        <div class="cta-emoji">&#129309;</div>
+        <div class="cta-title">&#191;Cu&#225;l te conviene?</div>
+        <div class="cta-text">Cada instrumento cumple un rol distinto. La clave est&#225; en construir una cartera que tenga sentido para tus objetivos.</div>
+        <div class="cta-buttons">
+          <a href="index.html#hoja-ruta" class="btn-outline-gold">Definir mi estrategia &#8594;</a>
+          <a href="index.html#contacto" class="btn-white-gold">Hablar con un asesor</a>
+        </div>
+      </div>
+
+      <!-- 10. BENCHMARK -->
+      <div class="card card-benchmark">
+        <div class="card-title">
+          <div class="card-title-left"><span class="card-icon">&#128200;</span>El largo plazo en acciones</div>
+          <span class="card-badge badge-faint">S&amp;P 500 &middot; USD 10.000 invertidos en 2000</span>
+        </div>
+        <div class="benchmark-layout">
+          <div class="benchmark-left">
+            <div class="stat-chip">
+              <div class="stat-chip-label">Rendimiento anualizado</div>
+              <div class="stat-chip-val gold">~8,6%</div>
+            </div>
+            <div class="stat-chip">
+              <div class="stat-chip-label">Valor hoy</div>
+              <div class="stat-chip-val">USD 78.000</div>
+            </div>
+            <div class="stat-chip">
+              <div class="stat-chip-label">Horizonte</div>
+              <div class="stat-chip-val" style="font-size:13px;">25 a&#241;os</div>
+            </div>
+            <div class="bench-quote">&laquo;Aun atravesando todas las crisis del per&#237;odo, quienes se mantuvieron invertidos multiplicaron su capital casi 8 veces.&raquo;</div>
+          </div>
+          <div class="benchmark-right">
+            <canvas id="v-bench-line" height="110" style="width:100%;display:block;"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-grid -->
+
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="mfoot">
+  <div class="mfoot-inner">
+    <p>La informaci&#243;n incluida tiene fines informativos y no constituye una recomendaci&#243;n individual de inversi&#243;n. Los rendimientos pasados no garantizan rendimientos futuros. Las alternativas deben analizarse en funci&#243;n del perfil, horizonte y objetivos de cada inversor. Retail20inversiones es un equipo de asesores dentro de Balanz Capital Valores S.A.U. &#8212; ALyC Integral N&#176; 210 ante la CNV.</p>
+    <p>&#169; 2026 Retail20inversiones &middot; Asesor&#237;a financiera de inversiones</p>
+  </div>
+</div>
+
+<script>
+    function mapaDrawDonut(canvasId, data, size) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const cx = size / 2;
+      const cy = size / 2;
+      const outerR = size / 2 - 2;
+      const innerR = outerR * 0.58;
+      const gap = 0.03;
+      const total = data.reduce((s, d) => s + d.pct, 0);
+      let angle = -Math.PI / 2;
+      ctx.clearRect(0, 0, size, size);
+      data.forEach(seg => {
+        const raw = (seg.pct / total) * (2 * Math.PI);
+        /* El separador nunca puede ser mayor que el propio gajo: con porciones
+           muy chicas (<1%) el barrido se volvía negativo y el arco invertido
+           terminaba pintando todo el anillo de un solo color. */
+        const g = Math.min(gap, raw * 0.35);
+        const sweep = raw - g;
+        ctx.beginPath();
+        ctx.arc(cx, cy, outerR, angle + g / 2, angle + sweep + g / 2);
+        ctx.arc(cx, cy, innerR, angle + sweep + g / 2, angle + g / 2, true);
+        ctx.closePath();
+        ctx.fillStyle = seg.color;
+        ctx.fill();
+        angle += sweep + g;
+      });
+    }
+
+    function mapaDrawMiniDonut(canvasId, data) {
+      mapaDrawDonut(canvasId, data, 40);
+    }
+
+    // ── CANVAS: LINE CHART ───────────────────────────────────────────
+    function mapaDrawLine(canvasId, data, opts) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const W = rect.width || canvas.parentElement.offsetWidth || 600;
+      const H = parseInt(canvas.getAttribute('height')) || 110;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const padL = 46, padR = 12, padT = 12, padB = 28;
+      const cW = W - padL - padR;
+      const cH = H - padT - padB;
+
+      const vals = data.map(d => d.v);
+      const yrs  = data.map(d => d.y);
+      const minV = 0;
+      const maxV = Math.max(...vals) * 1.08;
+      const minY = Math.min(...yrs);
+      const maxY = Math.max(...yrs);
+
+      function xPos(yr) { return padL + ((yr - minY) / (maxY - minY)) * cW; }
+      function yPos(v)  { return padT + cH - ((v - minV) / (maxV - minV)) * cH; }
+
+      const gridCount = 4;
+      ctx.strokeStyle = opts.gridColor || 'rgba(255,255,255,.05)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= gridCount; i++) {
+        const v = minV + (maxV - minV) * (i / gridCount);
+        const y = yPos(v);
+        ctx.beginPath();
+        ctx.moveTo(padL, y);
+        ctx.lineTo(padL + cW, y);
+        ctx.stroke();
+        const label = v >= 1000 ? '$' + Math.round(v / 1000) + 'k' : '$' + Math.round(v);
+        ctx.fillStyle = opts.labelColor || 'rgba(226,232,240,.3)';
+        ctx.font = '9px Inter, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(label, padL - 4, y + 3);
+      }
+
+      const labelYears = yrs.filter(y => y % 5 === 0 || y === minY || y === maxY);
+      const seenYears = new Set();
+      labelYears.forEach(yr => {
+        if (seenYears.has(yr)) return;
+        seenYears.add(yr);
+        const x = xPos(yr);
+        ctx.fillStyle = opts.labelColor || 'rgba(226,232,240,.3)';
+        ctx.font = '9px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(yr, x, padT + cH + 16);
+      });
+
+      const grad = ctx.createLinearGradient(0, padT, 0, padT + cH);
+      grad.addColorStop(0, opts.fillColor || 'rgba(201,168,76,.25)');
+      grad.addColorStop(1, 'rgba(201,168,76,0)');
+
+      ctx.beginPath();
+      for (let i = 0; i < data.length; i++) {
+        const x = xPos(data[i].y);
+        const y = yPos(data[i].v);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          const px = xPos(data[i-1].y);
+          const py = yPos(data[i-1].v);
+          const cpx = (px + x) / 2;
+          ctx.bezierCurveTo(cpx, py, cpx, y, x, y);
+        }
+      }
+      ctx.lineTo(xPos(data[data.length-1].y), padT + cH);
+      ctx.lineTo(padL, padT + cH);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.beginPath();
+      for (let i = 0; i < data.length; i++) {
+        const x = xPos(data[i].y);
+        const y = yPos(data[i].v);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          const px = xPos(data[i-1].y);
+          const py = yPos(data[i-1].v);
+          const cpx = (px + x) / 2;
+          ctx.bezierCurveTo(cpx, py, cpx, y, x, y);
+        }
+      }
+      ctx.strokeStyle = opts.lineColor || '#C9A84C';
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      const lx = xPos(data[data.length-1].y);
+      const ly = yPos(data[data.length-1].v);
+      ctx.beginPath();
+      ctx.arc(lx, ly, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#C9A84C';
+      ctx.fill();
+      ctx.strokeStyle = '#0b1426';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+(function() {
+
+    /* ============================================================
+       DATA
+       ============================================================ */
+    const vIndices = [
+      { nombre:'S&P 500',      que:'500 mayores empresas de EE.UU.',      riesgo:'Medio', destacado:true },
+      { nombre:'Nasdaq 100',   que:'100 l&#237;deres tecnol&#243;gicas',          riesgo:'Alto'  },
+      { nombre:'Dow Jones',    que:'30 industriales consolidadas',       riesgo:'Medio' },
+      { nombre:'Russell 2000', que:'2.000 empresas de baja cap.',        riesgo:'Alto'  },
+      { nombre:'MSCI World',   que:'23 pa&#237;ses desarrollados',            riesgo:'Medio' },
+    ];
+
+    /* Mapa de acciones por sector — principales empresas disponibles como CEDEAR */
+    const vSectores = [
+      { sector:'Tecnolog&#237;a', bg:'rgba(37,99,235,.13)', fg:'#60a5fa', empresas:[
+        {t:'AAPL',n:'Apple'},{t:'MSFT',n:'Microsoft'},{t:'NVDA',n:'Nvidia'},{t:'AVGO',n:'Broadcom'},
+        {t:'ORCL',n:'Oracle'},{t:'AMD',n:'AMD'},{t:'CRM',n:'Salesforce'},{t:'CSCO',n:'Cisco'},
+        {t:'IBM',n:'IBM'},{t:'QCOM',n:'Qualcomm'},{t:'TXN',n:'Texas Inst.'},{t:'MU',n:'Micron'},
+      ]},
+      { sector:'Comunicaci&#243;n', bg:'rgba(124,58,237,.14)', fg:'#a78bfa', empresas:[
+        {t:'GOOGL',n:'Alphabet'},{t:'META',n:'Meta'},{t:'NFLX',n:'Netflix'},
+        {t:'DIS',n:'Disney'},{t:'VZ',n:'Verizon'},{t:'T',n:'AT&amp;T'},
+      ]},
+      { sector:'Consumo Discrecional', bg:'rgba(217,119,6,.14)', fg:'#fbbf24', empresas:[
+        {t:'AMZN',n:'Amazon'},{t:'TSLA',n:'Tesla'},{t:'MELI',n:'MercadoLibre'},
+        {t:'HD',n:'Home Depot'},{t:'MCD',n:'McDonald\'s'},{t:'NKE',n:'Nike'},{t:'SBUX',n:'Starbucks'},
+      ]},
+      { sector:'Salud', bg:'rgba(5,150,105,.14)', fg:'#34d399', empresas:[
+        {t:'LLY',n:'Eli Lilly'},{t:'JNJ',n:'J&amp;J'},{t:'UNH',n:'UnitedHealth'},{t:'ABBV',n:'AbbVie'},
+        {t:'MRK',n:'Merck'},{t:'PFE',n:'Pfizer'},{t:'TMO',n:'Thermo F.'},{t:'AMGN',n:'Amgen'},
+      ]},
+      { sector:'Financiero', bg:'rgba(201,168,76,.15)', fg:'#e0c56b', empresas:[
+        {t:'BRK-B',n:'Berkshire'},{t:'JPM',n:'JPMorgan'},{t:'V',n:'Visa'},{t:'MA',n:'Mastercard'},
+        {t:'BAC',n:'Bank of Am.'},{t:'WFC',n:'Wells Fargo'},{t:'GS',n:'Goldman S.'},
+        {t:'MS',n:'Morgan St.'},{t:'AXP',n:'Amex'},{t:'C',n:'Citigroup'},
+      ]},
+      { sector:'Industriales', bg:'rgba(100,116,139,.18)', fg:'#cbd5e1', empresas:[
+        {t:'GE',n:'GE Aerospace'},{t:'RTX',n:'RTX'},{t:'CAT',n:'Caterpillar'},{t:'BA',n:'Boeing'},
+        {t:'HON',n:'Honeywell'},{t:'UPS',n:'UPS'},{t:'DE',n:'Deere'},{t:'LMT',n:'Lockheed'},
+      ]},
+      { sector:'Consumo Defensivo', bg:'rgba(16,185,129,.12)', fg:'#6ee7b7', empresas:[
+        {t:'WMT',n:'Walmart'},{t:'KO',n:'Coca-Cola'},{t:'PEP',n:'PepsiCo'},{t:'PG',n:'P&amp;G'},
+        {t:'COST',n:'Costco'},{t:'PM',n:'Philip M.'},{t:'MO',n:'Altria'},
+      ]},
+      { sector:'Energ&#237;a', bg:'rgba(234,88,12,.15)', fg:'#fb923c', empresas:[
+        {t:'XOM',n:'Exxon'},{t:'CVX',n:'Chevron'},{t:'COP',n:'ConocoPh.'},
+      ]},
+    ];
+
+    /* Quant Selection — composición julio 2026 */
+    const vQuantPos = [
+      { ticker:'GE',   empresa:'GE Aerospace',      peso:28.20 },
+      { ticker:'RTX',  empresa:'RTX Corporation',   peso:18.27 },
+      { ticker:'MU',   empresa:'Micron Technology', peso:18.25 },
+      { ticker:'CSCO', empresa:'Cisco Systems',     peso:15.20 },
+      { ticker:'CAT',  empresa:'Caterpillar',       peso:11.19 },
+      { ticker:'GS',   empresa:'Goldman Sachs',     peso:8.44  },
+    ];
+    const vQuantSectors = [
+      { label:'Aeroespacial y Defensa', pct:46.5, color:'#1a2e4a' },
+      { label:'Tecnolog&#237;a',              pct:33.5, color:'#C9A84C' },
+      { label:'Maquinaria',             pct:11.2, color:'#2563eb' },
+      { label:'Financiero',             pct:8.4,  color:'#059669' },
+    ];
+
+    const vFondos = [
+      /* Composiciones oficiales de balanz.com — datos al 30/06/2026 */
+      { nombre:'Balanz Ahorro Corto Plazo', desc:'Renta fija en pesos de corto plazo', moneda:'ARS', perfil:'Conservador',
+        horizonte:'Corto plazo', liquidez:'24 hs', minimo:'$ 1.000', calif:'AA+',
+        composicion:[
+          {tipo:'Bonos Soberanos CER',pct:32.6,color:'#1a2e4a'},
+          {tipo:'Bonos Soberanos Tasa Fija',pct:26.2,color:'#C9A84C'},
+          {tipo:'Plazos Fijos',pct:20.6,color:'#2563eb'},
+          {tipo:'Fideicomisos Financieros',pct:7.7,color:'#059669'},
+          {tipo:'Bonos Badlar Soberanos',pct:7,color:'#7c3aed'},
+          {tipo:'Bonos Badlar Corporativos',pct:5.1,color:'#d97706'},
+          {tipo:'Liquidez',pct:0.6,color:'#64748b'},
+          {tipo:'Bonos Badlar Subsoberanos',pct:0.2,color:'#94a3b8'}
+        ] },
+      { nombre:'Balanz D&#243;lar Corto Plazo', desc:'Estrategia I &middot; renta fija en USD', moneda:'USD', perfil:'Conservador',
+        horizonte:'Corto plazo', liquidez:'24 hs', minimo:'USD 100', calif:'AA+',
+        composicion:[
+          {tipo:'Bonos D&#243;lar Corporativos',pct:69.8,color:'#1a2e4a'},
+          {tipo:'Liquidez',pct:15.1,color:'#C9A84C'},
+          {tipo:'Bonos D&#243;lar Soberanos y Subsob.',pct:10.6,color:'#2563eb'},
+          {tipo:'T-Bills',pct:4.5,color:'#059669'}
+        ] },
+      { nombre:'Balanz Corporativo', desc:'Ahorro USD &middot; corporativos en d&#243;lares', moneda:'USD', perfil:'Moderado',
+        horizonte:'Mediano plazo', liquidez:'24 hs', minimo:'USD 100', calif:'AA',
+        composicion:[
+          {tipo:'Bono Corporativo Oil y Gas',pct:47,color:'#1a2e4a'},
+          {tipo:'Bonos Corporativos Energ&#237;a',pct:19,color:'#C9A84C'},
+          {tipo:'Liquidez',pct:10,color:'#2563eb'},
+          {tipo:'Bono Corporativo Financiera',pct:10,color:'#059669'},
+          {tipo:'Bonos Corporativos Telco',pct:7.3,color:'#7c3aed'},
+          {tipo:'Bono Corporativo Consumo',pct:6.7,color:'#d97706'}
+        ] },
+    ];
+
+    const vBonds = [
+      { empresa:'Pampa Energ&#237;a', ticker:'MGC1O', sector:'Energ&#237;a', vencimiento:'2029', ley:'Nueva York',
+        calificacion:'B+', cupon:'7.5%', cuponNum:7.5, pago:'Semestral', montoMin:'USD 1.000',
+        riesgo:'Moderado', estilo:'Defensivo', color:'#1a2e4a' },
+      { empresa:'YPF S.A.', ticker:'YPFDO', sector:'Oil &amp; Gas', vencimiento:'2031', ley:'Nueva York',
+        calificacion:'B+', cupon:'8.5%', cuponNum:8.5, pago:'Semestral', montoMin:'USD 1.000',
+        riesgo:'Moderado-Alto', estilo:'Mayor retorno', color:'#8B1A2D' },
+    ];
+
+    /* S&P 500 total return — USD 10.000 invertidos en 2000 (consistente con rv.html) */
+    const vSpxData = [
+      {y:2000,v:10000},{y:2002,v:6900},{y:2004,v:9900},{y:2006,v:12200},
+      {y:2008,v:8100},{y:2010,v:11900},{y:2012,v:14100},{y:2014,v:21200},
+      {y:2016,v:23900},{y:2018,v:27600},{y:2020,v:43200},{y:2021,v:55900},
+      {y:2022,v:46300},{y:2024,v:69100},{y:2026,v:78000}
+    ];
+
+    let vSelectedFondo = null;
+
+    /* ============================================================
+       BUILDERS
+       ============================================================ */
+    function riesgoDot(r) {
+      const cls = r === 'Bajo' ? 'r-bajo' : r === 'Medio' ? 'r-medio' : 'r-alto';
+      return '<span class="dot-riesgo ' + cls + '"></span>' + r;
+    }
+
+    function vBuildIndices() {
+      const tbody = document.querySelector('#v-indices-table tbody');
+      if (!tbody) return;
+      tbody.innerHTML = vIndices.map(i => `
+        <tr>
+          <td style="font-size:11.5px;font-weight:600;color:var(--text);">
+            ${i.nombre}${i.destacado ? ' <span class="destacado-tag" style="margin-left:4px;">&#9733;</span>' : ''}
+          </td>
+          <td style="font-size:10.5px;color:var(--dim);">${i.que}</td>
+          <td class="r" style="font-size:10.5px;white-space:nowrap;">${riesgoDot(i.riesgo)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function vBuildSectormap() {
+      const cont = document.getElementById('v-sectormap');
+      if (!cont) return;
+      cont.innerHTML = vSectores.map(s => {
+        const tiles = s.empresas.map(e => `
+          <div class="sm-tile" title="${e.n} (${e.t})">
+            <span class="sm-ticker">${e.t}</span>
+            <span class="sm-name">${e.n}</span>
+          </div>`).join('');
+        return `
+        <div class="sm-sector" style="--n:${s.empresas.length};--sbg:${s.bg};--sfg:${s.fg};">
+          <div class="sm-head" style="color:${s.fg};">${s.sector}<span>${s.empresas.length}</span></div>
+          <div class="sm-tiles">${tiles}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function vBuildQuantLegend() {
+      const el = document.getElementById('v-quant-legend');
+      if (!el) return;
+      el.innerHTML = vQuantSectors.map(s => `
+        <div class="legend-item">
+          <div class="legend-dot" style="background:${s.color};"></div>
+          <span>${s.label}</span>
+          <span class="legend-pct">${s.pct}%</span>
+        </div>
+      `).join('');
+    }
+
+    function vBuildQuantPositions() {
+      const tbody = document.querySelector('#v-quant-pos-table tbody');
+      if (!tbody) return;
+      const max = Math.max(...vQuantPos.map(p => p.peso));
+      tbody.innerHTML = vQuantPos.map(p => `
+        <tr>
+          <td><span class="ticker-badge">${p.ticker}</span></td>
+          <td style="font-size:10.5px;color:var(--dim);">${p.empresa}</td>
+          <td class="r">
+            <div class="peso-bar-wrap" style="justify-content:flex-end;">
+              <div class="peso-bar" style="width:${(p.peso / max) * 34}px;"></div>
+              <span style="font-size:10.5px;color:var(--text);font-weight:600;">${p.peso}%</span>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function vBuildFondos() {
+      const container = document.getElementById('v-fondos-list');
+      if (!container) return;
+      container.innerHTML = vFondos.map((f, i) => `
+        <div class="fund-card" id="v-fund-card-${i}" data-fondo="${i}">
+          <canvas id="v-fund-mini-${i}" width="40" height="40"></canvas>
+          <div class="fund-info">
+            <div class="fund-name">${f.nombre}</div>
+            <div class="fund-desc">${f.desc}</div>
+            <div class="fund-badges">
+              <span class="card-badge ${f.moneda === 'USD' ? 'badge-gold' : 'badge-blue'}">${f.moneda}</span>
+              <span class="card-badge badge-faint">${f.perfil}</span>
+            </div>
+          </div>
+          <div class="fund-metrics">
+            <div class="fund-metric"><span>Rescate</span> ${f.liquidez}</div>
+            <div class="fund-metric"><span>M&#237;nimo</span> ${f.minimo}</div>
+            <div class="fund-metric"><span>Calif.</span> ${f.calif}</div>
+          </div>
+        </div>
+      `).join('');
+      container.querySelectorAll('[data-fondo]').forEach(el => {
+        el.addEventListener('click', () => vSelectFondo(parseInt(el.dataset.fondo)));
+      });
+    }
+
+    function vSelectFondo(i) {
+      const fondo = vFondos[i];
+      const detail = document.getElementById('v-fund-detail');
+      if (!detail) return;
+      if (vSelectedFondo === i) {
+        vSelectedFondo = null;
+        detail.classList.remove('active');
+        document.querySelectorAll('[id^="v-fund-card-"]').forEach(c => c.classList.remove('selected'));
+        return;
+      }
+      vSelectedFondo = i;
+      document.querySelectorAll('[id^="v-fund-card-"]').forEach((c, idx) => {
+        c.classList.toggle('selected', idx === i);
+      });
+      document.getElementById('v-fund-detail-title').textContent = fondo.nombre.replace(/&#243;/g, 'ó');
+      document.getElementById('v-fund-detail-legend').innerHTML = fondo.composicion.map(c => `
+        <div class="fund-detail-legend-item">
+          <div class="legend-dot" style="background:${c.color};"></div>
+          <span>${c.tipo}</span>
+          <span class="fund-detail-pct">${c.pct}%</span>
+        </div>
+      `).join('');
+      detail.classList.add('active');
+      mapaDrawDonut('v-fund-detail-donut', fondo.composicion.map(c => ({label:c.tipo, pct:c.pct, color:c.color})), 80);
+    }
+
+    function vBuildBonds() {
+      const row = document.getElementById('v-bonds-row');
+      if (!row) return;
+      row.innerHTML = vBonds.map(b => `
+        <div class="bond-card">
+          <div class="bond-header">
+            <div>
+              <div class="bond-empresa">${b.empresa}</div>
+              <span class="ticker-badge">${b.ticker}</span>
+            </div>
+            <span class="bond-estilo" style="color:${b.color === '#8B1A2D' ? '#e26d7d' : '#7ea6e0'};">${b.estilo}</span>
+          </div>
+          <div class="bond-metrics">
+            <div class="bond-metric-item"><span class="bond-metric-label">Cup&#243;n</span><span class="bond-metric-val" style="color:var(--gold);">${b.cupon}</span></div>
+            <div class="bond-metric-item"><span class="bond-metric-label">Vence</span><span class="bond-metric-val">${b.vencimiento}</span></div>
+            <div class="bond-metric-item"><span class="bond-metric-label">Pago</span><span class="bond-metric-val">${b.pago}</span></div>
+            <div class="bond-metric-item"><span class="bond-metric-label">M&#237;nimo</span><span class="bond-metric-val">${b.montoMin}</span></div>
+          </div>
+          <div class="bond-badges">
+            <span class="card-badge badge-faint">${b.riesgo}</span>
+            <span class="card-badge badge-gray">Ley ${b.ley}</span>
+          </div>
+        </div>
+      `).join('');
+
+      const bars = document.getElementById('v-cupon-bars');
+      if (!bars) return;
+      const max = Math.max(...vBonds.map(b => b.cuponNum));
+      bars.innerHTML = vBonds.map(b => `
+        <div class="tir-bar-row">
+          <div class="tir-bar-label">${b.empresa}</div>
+          <div class="tir-bar-track"><div class="tir-bar-fill" style="width:${(b.cuponNum / max) * 100}%;background:${b.color === '#8B1A2D' ? '#C9A84C' : '#2563eb'};"></div></div>
+          <div class="tir-bar-val" style="color:var(--gold);">${b.cupon}</div>
+        </div>
+      `).join('');
+    }
+
+    /* ============================================================
+       FILTROS
+       ============================================================ */
+    const filtros = { moneda:'todos', perfil:'todos', horizonte:'todos', tipo:'todos' };
+
+    function aplicarFiltros() {
+      const cards = document.querySelectorAll('.main-grid .card[data-tipo]');
+      let visibles = 0;
+      cards.forEach(c => {
+        const ok = ['moneda','perfil','horizonte','tipo'].every(k => {
+          if (filtros[k] === 'todos') return true;
+          return (c.dataset[k] || '').split(' ').includes(filtros[k]);
+        });
+        c.classList.toggle('oculto', !ok);
+        if (ok) visibles++;
+      });
+      const total = cards.length;
+      const el = document.getElementById('fcount');
+      if (el) el.textContent = visibles === total
+        ? `${total} grupos de instrumentos`
+        : `Mostrando ${visibles} de ${total} grupos`;
+    }
+
+    document.querySelectorAll('.fpill').forEach(p => {
+      p.addEventListener('click', () => {
+        const f = p.dataset.f;
+        filtros[f] = p.dataset.v;
+        document.querySelectorAll(`.fpill[data-f="${f}"]`).forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        aplicarFiltros();
+      });
+    });
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    function dibujar() {
+      mapaDrawDonut('v-quant-pie', vQuantSectors, 90);
+      vFondos.forEach((f, i) => {
+        mapaDrawMiniDonut('v-fund-mini-' + i, f.composicion.map(c => ({label:c.tipo, pct:c.pct, color:c.color})));
+      });
+      mapaDrawLine('v-bench-line', vSpxData, {
+        lineColor: '#C9A84C',
+        fillColor: 'rgba(201,168,76,.22)',
+        labelColor: 'rgba(226,232,240,.35)',
+        gridColor: 'rgba(255,255,255,.05)'
+      });
+    }
+
+    /* ============================================================
+       ACTUALIZACIÓN AUTOMÁTICA DE FCI DESDE BALANZ
+       Los datos de arriba son el respaldo. En cada carga se intenta
+       traer la composición vigente desde balanz.com; si falla (sin
+       internet, endpoint caído, CORS), se muestran los de respaldo.
+       ============================================================ */
+    const FONDOS_COD = [3, 41, 8];  /* Ahorro Corto Plazo · Dólar Corto Plazo (Estrategia I) · Corporativo */
+    const PALETA = ['#1a2e4a','#C9A84C','#2563eb','#059669','#7c3aed','#d97706','#64748b','#94a3b8'];
+
+    function fmtMinimo(monto, moneda) {
+      if (!monto) return null;
+      return moneda === 'USD' ? 'USD ' + monto : '$ ' + monto.toLocaleString('es-AR');
+    }
+
+    async function actualizarFondosDesdeBalanz() {
+      try {
+        const r = await fetch('https://balanz.com/api-web/v1/funds/information', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}'
+        });
+        if (!r.ok) return;
+        const data = await r.json();
+        if (!Array.isArray(data)) return;
+
+        let fecha = null, actualizados = 0;
+        FONDOS_COD.forEach((cod, i) => {
+          const f = data.find(x => x.CodFondo === cod);
+          if (!f || !Array.isArray(f.ComposicionCartera) || !f.ComposicionCartera.length) return;
+          const suma = f.ComposicionCartera.reduce((s, c) => s + (c.Valor || 0), 0);
+          if (suma < 95 || suma > 105) return;   /* dato incompleto: conservar respaldo */
+
+          vFondos[i].composicion = f.ComposicionCartera
+            .slice().sort((a, b) => b.Valor - a.Valor)
+            .map((c, idx) => ({ tipo: c.Nombre, pct: c.Valor, color: PALETA[idx % PALETA.length] }));
+          if (f.PlazoRescate)    vFondos[i].liquidez = f.PlazoRescate;
+          if (f.PerfilInversor)  vFondos[i].perfil   = f.PerfilInversor;
+          if (f.Calificacion)    vFondos[i].calif    = f.Calificacion;
+          const min = fmtMinimo(f.InversionMinima, vFondos[i].moneda);
+          if (min) vFondos[i].minimo = min;
+          if (f.ComposicionCarteraFecha) fecha = f.ComposicionCarteraFecha.slice(0, 10);
+          actualizados++;
+        });
+
+        if (!actualizados) return;
+        if (fecha) {
+          const [y, m, d] = fecha.split('-');
+          const el = document.getElementById('fondos-fecha');
+          if (el) el.textContent = `Cartera al ${d}.${m}.${y}`;
+        }
+        vBuildFondos();
+        vFondos.forEach((f, i) => mapaDrawMiniDonut('v-fund-mini-' + i,
+          f.composicion.map(c => ({ label: c.tipo, pct: c.pct, color: c.color }))));
+      } catch (e) {
+        /* Sin conexión o endpoint no disponible: quedan los datos de respaldo */
+      }
+    }
+
+    vBuildIndices();
+    vBuildSectormap();
+    vBuildQuantLegend();
+    vBuildQuantPositions();
+    vBuildFondos();
+    vBuildBonds();
+    aplicarFiltros();
+    actualizarFondosDesdeBalanz();
+
+    /* Dibujo sincrónico: requestAnimationFrame se pausa en pestañas en segundo plano */
+    dibujar();
+    window.addEventListener('load', dibujar);
+
+    let vResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(vResizeTimer);
+      vResizeTimer = setTimeout(dibujar, 150);
+    });
+
+})();
+</script>
+</body>
+</html>

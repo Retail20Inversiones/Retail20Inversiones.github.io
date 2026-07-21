@@ -1,0 +1,17 @@
+# Herramientas de desarrollo local (no forman parte del sitio)
+.claude/
+
+# Documentos internos — NO publicar
+*.pdf
+*.xlsx
+*.xls
+*.docx
+
+# Basura del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencias (por si en el futuro se suma una app)
+node_modules/
+.vercel/
