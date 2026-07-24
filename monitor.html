@@ -27,18 +27,6 @@
     .mnav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;background:#C9A84C;color:#0b1426!important;border-radius:7px;font-size:.79rem;font-weight:700;transition:all .25s;white-space:nowrap;}
     .mnav-cta:hover{background:#dcbb5c;transform:translateY(-1px);}
 
-    /* ===== FILTER BAR ===== */
-    .filtros{position:sticky;top:64px;z-index:900;background:rgba(19,31,51,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.07);}
-    .filtros-inner{max-width:1360px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-    .fgroup{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
-    .flabel{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(226,232,240,.35);margin-right:2px;}
-    .fpill{font-family:inherit;font-size:11.5px;font-weight:600;color:rgba(226,232,240,.62);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:5px 12px;cursor:pointer;transition:all .2s;}
-    .fpill:hover{color:#fff;border-color:rgba(201,168,76,.45);}
-    .fpill.active{background:#C9A84C;border-color:#C9A84C;color:#0b1426;}
-    .fdiv{width:1px;height:20px;background:rgba(255,255,255,.09);flex-shrink:0;}
-    .fcount{margin-left:auto;font-size:11px;color:rgba(226,232,240,.4);white-space:nowrap;}
-    .card.oculto{display:none!important;}
-
     /* ===== Cards nuevas (ETFs / comparador) ===== */
     .mapa-wrap .card-etfs      { grid-area: etfs; }
     .mapa-wrap .card-comparador{ grid-area: comparador; }
@@ -48,10 +36,14 @@
     .etf-pill{font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:rgba(226,232,240,.8);}
     .etf-pill.gold{background:rgba(201,168,76,.13);border-color:rgba(201,168,76,.35);color:#C9A84C;}
     .comp-table{width:100%;border-collapse:collapse;}
-    .comp-table th{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(226,232,240,.35);text-align:left;padding:0 6px 7px 0;border-bottom:1px solid rgba(255,255,255,.07);}
-    .comp-table td{font-size:11px;color:rgba(226,232,240,.78);padding:7px 6px 7px 0;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+    .comp-table th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(226,232,240,.4);text-align:left;padding:0 12px 10px 0;border-bottom:1px solid rgba(255,255,255,.09);}
+    .comp-table td{font-size:13.5px;color:rgba(226,232,240,.82);padding:13px 12px 13px 0;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:middle;}
     .comp-table tbody tr:last-child td{border-bottom:none;}
-    .comp-inst{font-weight:700;color:#fff;font-size:11.5px;}
+    .comp-table tbody tr:hover td{background:rgba(255,255,255,.02);}
+    .comp-inst{font-weight:700;color:#fff;font-size:14px;}
+    .comp-h{font-weight:800;color:#C9A84C;font-size:13px;white-space:nowrap;}
+    .comp-warn{color:#fbbf24;font-weight:600;}
+    .comp-o{color:rgba(226,232,240,.4);font-style:italic;margin:0 3px;}
     .dot-riesgo{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle;}
     .r-bajo{background:#10b981;} .r-medio{background:#d97706;} .r-alto{background:#ef4444;}
 
@@ -77,9 +69,6 @@
     @media(max-width:900px){
       .mnav-inner{height:auto;padding:10px 16px;flex-wrap:wrap;}
       .mnav-menu{display:none;}
-      .filtros{position:static;}
-      .filtros-inner{gap:10px;}
-      .fcount{margin-left:0;width:100%;}
     }
 
         /* ============================================================
@@ -537,14 +526,18 @@
         .mapa-wrap .card-cta {
             background: linear-gradient(135deg, #1a0a12 0%, #2d0f1e 50%, #1a0a12 100%);
             border: 1px solid rgba(139,26,45,.3);
+            flex-direction: row;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            padding: 24px 28px;
         }
-        .mapa-wrap .cta-emoji { font-size: 36px; line-height: 1; margin-bottom: 4px; }
+        .mapa-wrap .cta-emoji { font-size: 34px; line-height: 1; }
         .mapa-wrap .cta-title { font-size: 20px; font-weight: 800; color: var(--text); }
-        .mapa-wrap .cta-text { font-size: 12px; color: var(--dim); line-height: 1.6; max-width: 220px; }
-        .mapa-wrap .cta-buttons { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .mapa-wrap .cta-text { font-size: 12.5px; color: var(--dim); line-height: 1.6; max-width: 420px; }
+        .mapa-wrap .cta-copy { flex: 1; min-width: 240px; }
+        .mapa-wrap .cta-buttons { display: flex; flex-direction: row; gap: 10px; flex-wrap: wrap; }
         .mapa-wrap .btn-outline-gold {
             display: flex;
             align-items: center;
@@ -619,34 +612,31 @@
             max-width: 1360px;
             grid-template-columns: 340px 1fr 1fr;
             grid-template-areas:
-                "indices   empresas   empresas"
-                "quant     fondos     ons"
-                "idea      etfs       comparador"
-                "benchmark benchmark  cta";
+                "indices    empresas   empresas"
+                "quant      fondos     ons"
+                "comparador comparador comparador"
+                "cta        cta        cta";
             padding: 0 20px 24px;
         }
-        .mapa-wrap .card-benchmark { grid-area: benchmark; }
         .mapa-wrap .card-cta { grid-area: cta; }
         @media (max-width: 1100px) {
             .main-grid {
                 grid-template-columns: 1fr 1fr;
                 grid-template-areas:
-                    "empresas  empresas"
-                    "indices   idea"
-                    "quant     fondos"
-                    "ons       etfs"
+                    "empresas   empresas"
+                    "indices    quant"
+                    "fondos     ons"
                     "comparador comparador"
-                    "benchmark benchmark"
-                    "cta       cta";
+                    "cta        cta";
             }
         }
         @media (max-width: 760px) {
             .main-grid {
                 grid-template-columns: 1fr;
                 grid-template-areas:
-                    "indices" "empresas" "idea" "quant"
-                    "fondos" "ons" "etfs" "comparador"
-                    "benchmark" "cta";
+                    "indices" "empresas" "quant"
+                    "fondos" "ons" "comparador"
+                    "cta";
             }
         }
   </style>
@@ -680,45 +670,8 @@
     <div class="mapa-page-header">
       <div class="mapa-page-header-inner">
         <div class="header-badge">Vidriera de Instrumentos</div>
-        <div class="header-subtitle">Todo lo que vimos a lo largo del sitio, bajado a instrumentos concretos. Filtr&#225; por moneda, perfil y horizonte para encontrar los que se adaptan a vos.</div>
+        <div class="header-subtitle">Un paneo de los instrumentos que seguimos de cerca &#8212; acciones por sector, fondos, obligaciones negociables y el Pack Quant &#8212; con lo que hoy destacamos en cada uno.</div>
         <div class="header-note">Datos referenciales &middot; Actualizaci&#243;n manual &middot; Julio 2026</div>
-      </div>
-    </div>
-
-    <!-- ===== FILTROS ===== -->
-    <div class="filtros">
-      <div class="filtros-inner">
-        <div class="fgroup">
-          <span class="flabel">Moneda</span>
-          <button class="fpill active" data-f="moneda" data-v="todos">Todas</button>
-          <button class="fpill" data-f="moneda" data-v="pesos">Pesos</button>
-          <button class="fpill" data-f="moneda" data-v="dolares">D&#243;lares</button>
-        </div>
-        <div class="fdiv"></div>
-        <div class="fgroup">
-          <span class="flabel">Perfil</span>
-          <button class="fpill active" data-f="perfil" data-v="todos">Todos</button>
-          <button class="fpill" data-f="perfil" data-v="conservador">Conservador</button>
-          <button class="fpill" data-f="perfil" data-v="moderado">Moderado</button>
-          <button class="fpill" data-f="perfil" data-v="agresivo">Agresivo</button>
-        </div>
-        <div class="fdiv"></div>
-        <div class="fgroup">
-          <span class="flabel">Horizonte</span>
-          <button class="fpill active" data-f="horizonte" data-v="todos">Todos</button>
-          <button class="fpill" data-f="horizonte" data-v="corto">Corto</button>
-          <button class="fpill" data-f="horizonte" data-v="mediano">Mediano</button>
-          <button class="fpill" data-f="horizonte" data-v="largo">Largo</button>
-        </div>
-        <div class="fdiv"></div>
-        <div class="fgroup">
-          <span class="flabel">Tipo</span>
-          <button class="fpill active" data-f="tipo" data-v="todos">Todos</button>
-          <button class="fpill" data-f="tipo" data-v="rv">Renta Variable</button>
-          <button class="fpill" data-f="tipo" data-v="fci">FCI</button>
-          <button class="fpill" data-f="tipo" data-v="on">ON</button>
-        </div>
-        <span class="fcount" id="fcount"></span>
       </div>
     </div>
 
@@ -732,7 +685,7 @@
           <span class="card-badge badge-gold">CEDEARs de ETFs</span>
         </div>
         <table class="mini-table" id="v-indices-table">
-          <thead><tr><th>&#205;ndice</th><th>Qu&#233; incluye</th><th class="r">Riesgo</th></tr></thead>
+          <thead><tr><th>ETF</th><th>&#205;ndice</th><th>Qu&#233; incluye</th></tr></thead>
           <tbody></tbody>
         </table>
         <div>
@@ -750,21 +703,6 @@
         </div>
         <div class="sectormap" id="v-sectormap"></div>
         <div class="note-faint" style="margin-top:8px;">Principales empresas de cada sector disponibles como CEDEAR desde Argentina. No es una recomendaci&#243;n de compra.</div>
-      </div>
-
-      <!-- 3. DESTACADO DEL MES -->
-      <div class="card card-idea" data-tipo="rv" data-moneda="dolares" data-perfil="moderado agresivo" data-horizonte="mediano largo">
-        <div>
-          <div class="idea-label">&#11088; DESTACADO DEL MES</div>
-          <div class="idea-title">Diversificar hacia renta variable global</div>
-          <div class="idea-text">Sumar exposici&#243;n internacional en d&#243;lares para sostener el crecimiento del patrimonio en el largo plazo, combinando &#237;ndices amplios con una selecci&#243;n de empresas l&#237;deres.</div>
-        </div>
-        <div class="pills">
-          <span class="pill badge-amber">Perfil: Moderado</span>
-          <span class="pill badge-blue">Horizonte: Mediano/Largo</span>
-          <span class="pill badge-gray">CEDEARs &middot; ETFs &middot; FCI</span>
-        </div>
-        <a href="index.html#contacto" class="btn-full">&#128172; Hablar con un asesor</a>
       </div>
 
       <!-- 4. QUANT SELECTION -->
@@ -828,91 +766,53 @@
         <a href="on.html" class="btn-outline-sm">Ver Obligaciones Negociables &#8594;</a>
       </div>
 
-      <!-- 7. ETFs TEMÁTICOS -->
-      <div class="card card-etfs" data-tipo="rv" data-moneda="dolares" data-perfil="moderado agresivo" data-horizonte="largo">
-        <div class="card-title">
-          <div class="card-title-left"><span class="card-icon">&#127760;</span>ETFs disponibles</div>
-          <span class="card-badge badge-gold">v&#237;a CEDEAR</span>
-        </div>
-        <div class="etf-group">
-          <div class="etf-group-label">&#205;ndices amplios</div>
-          <div class="etf-pills">
-            <span class="etf-pill gold">S&amp;P 500</span>
-            <span class="etf-pill">Nasdaq 100</span>
-            <span class="etf-pill">Dow Jones</span>
-            <span class="etf-pill">MSCI World</span>
-          </div>
-        </div>
-        <div class="etf-group">
-          <div class="etf-group-label">Tem&#225;ticos / sectoriales</div>
-          <div class="etf-pills">
-            <span class="etf-pill">Inteligencia Artificial</span>
-            <span class="etf-pill">Energ&#237;a</span>
-            <span class="etf-pill">Salud</span>
-            <span class="etf-pill">Ciberseguridad</span>
-            <span class="etf-pill">Semiconductores</span>
-            <span class="etf-pill">Consumo</span>
-          </div>
-        </div>
-        <div class="note-faint">Un ETF replica un &#237;ndice o sector completo: en vez de comprar una empresa, invert&#237;s en una cartera entera con un solo instrumento.</div>
-        <a href="rv.html" class="btn-outline-sm">C&#243;mo funcionan &#8594;</a>
-      </div>
-
-      <!-- 8. COMPARADOR -->
+      <!-- COMPARADOR -->
       <div class="card card-comparador">
         <div class="card-title">
-          <div class="card-title-left"><span class="card-icon">&#9878;</span>Comparador r&#225;pido</div>
+          <div class="card-title-left"><span class="card-icon">&#9878;</span>Comparador r&#225;pido &#8212; qu&#233; instrumento seg&#250;n tu horizonte</div>
         </div>
         <table class="comp-table">
-          <thead><tr><th>Instrumento</th><th>Moneda</th><th>Horizonte</th><th>Riesgo</th><th>Liquidez</th></tr></thead>
+          <thead><tr><th>Horizonte</th><th>Instrumento</th><th>Moneda</th><th>Objetivo</th><th>Riesgo</th><th>Rescate</th></tr></thead>
           <tbody>
-            <tr><td class="comp-inst">FCI en Pesos</td><td>Pesos</td><td>D&#237;as a meses</td><td><span class="dot-riesgo r-bajo"></span>Bajo</td><td>24 hs</td></tr>
-            <tr><td class="comp-inst">FCI en USD</td><td>D&#243;lares</td><td>Meses</td><td><span class="dot-riesgo r-bajo"></span>Bajo</td><td>24 hs</td></tr>
-            <tr><td class="comp-inst">Obligaciones Neg.</td><td>D&#243;lares</td><td>1 a&#241;o +</td><td><span class="dot-riesgo r-medio"></span>Medio</td><td>Mercado</td></tr>
-            <tr><td class="comp-inst">CEDEARs</td><td>D&#243;lares</td><td>2 a&#241;os +</td><td><span class="dot-riesgo r-alto"></span>Alto</td><td>Mercado</td></tr>
-            <tr><td class="comp-inst">ETFs</td><td>D&#243;lares</td><td>2 a&#241;os +</td><td><span class="dot-riesgo r-medio"></span>Medio</td><td>Mercado</td></tr>
-            <tr><td class="comp-inst">Quant Selection</td><td>D&#243;lares</td><td>3-5 a&#241;os</td><td><span class="dot-riesgo r-alto"></span>Alto</td><td>Mercado</td></tr>
+            <tr>
+              <td class="comp-h">Menos de 1 a&#241;o</td>
+              <td class="comp-inst">Fondo Ahorro</td><td>Pesos</td>
+              <td>Rendimiento en pesos con liquidez. <span class="comp-warn">El riesgo es que suba el d&#243;lar.</span></td>
+              <td><span class="dot-riesgo r-bajo"></span>Conservador</td><td>24 hs</td>
+            </tr>
+            <tr>
+              <td class="comp-h">6 meses +</td>
+              <td class="comp-inst">FCI en USD</td><td>D&#243;lares</td>
+              <td>D&#243;lar Corto Plazo <span class="comp-o">o</span> Ahorro Corporativo</td>
+              <td><span class="dot-riesgo r-bajo"></span>Conservador</td><td>24 hs</td>
+            </tr>
+            <tr>
+              <td class="comp-h">1 a&#241;o +</td>
+              <td class="comp-inst">Obligaciones Negociables</td><td>D&#243;lares</td>
+              <td>Renta fija previsible en d&#243;lares</td>
+              <td><span class="dot-riesgo r-bajo"></span>Conservador</td><td>24 hs</td>
+            </tr>
+            <tr>
+              <td class="comp-h">2 a&#241;os +</td>
+              <td class="comp-inst">CEDEARs / ETFs</td><td>D&#243;lares</td>
+              <td>Crecimiento en empresas e &#237;ndices globales</td>
+              <td><span class="dot-riesgo r-alto"></span>Moderado / Audaz</td><td>24 hs</td>
+            </tr>
           </tbody>
         </table>
-        <div class="note-faint">La liquidez &laquo;Mercado&raquo; significa que pod&#233;s vender cualquier d&#237;a h&#225;bil al precio vigente.</div>
+        <div class="note-faint">Invertir en pesos es conservador en pesos, pero implica el riesgo de que el d&#243;lar suba. A mayor horizonte, mayor potencial de retorno y mayor tolerancia a la volatilidad. El rescate a 24 hs es el plazo de acreditaci&#243;n del dinero.</div>
       </div>
 
-      <!-- 9. CTA -->
+      <!-- CTA -->
       <div class="card card-cta">
         <div class="cta-emoji">&#129309;</div>
-        <div class="cta-title">&#191;Cu&#225;l te conviene?</div>
-        <div class="cta-text">Cada instrumento cumple un rol distinto. La clave est&#225; en construir una cartera que tenga sentido para tus objetivos.</div>
+        <div class="cta-copy">
+          <div class="cta-title">&#191;Cu&#225;l te conviene?</div>
+          <div class="cta-text">Cada instrumento cumple un rol distinto. La clave est&#225; en construir una cartera que tenga sentido para tus objetivos.</div>
+        </div>
         <div class="cta-buttons">
           <a href="index.html#hoja-ruta" class="btn-outline-gold">Definir mi estrategia &#8594;</a>
           <a href="index.html#contacto" class="btn-white-gold">Hablar con un asesor</a>
-        </div>
-      </div>
-
-      <!-- 10. BENCHMARK -->
-      <div class="card card-benchmark">
-        <div class="card-title">
-          <div class="card-title-left"><span class="card-icon">&#128200;</span>El largo plazo en acciones</div>
-          <span class="card-badge badge-faint">S&amp;P 500 &middot; USD 10.000 invertidos en 2000</span>
-        </div>
-        <div class="benchmark-layout">
-          <div class="benchmark-left">
-            <div class="stat-chip">
-              <div class="stat-chip-label">Rendimiento anualizado</div>
-              <div class="stat-chip-val gold">~8,6%</div>
-            </div>
-            <div class="stat-chip">
-              <div class="stat-chip-label">Valor hoy</div>
-              <div class="stat-chip-val">USD 78.000</div>
-            </div>
-            <div class="stat-chip">
-              <div class="stat-chip-label">Horizonte</div>
-              <div class="stat-chip-val" style="font-size:13px;">25 a&#241;os</div>
-            </div>
-            <div class="bench-quote">&laquo;Aun atravesando todas las crisis del per&#237;odo, quienes se mantuvieron invertidos multiplicaron su capital casi 8 veces.&raquo;</div>
-          </div>
-          <div class="benchmark-right">
-            <canvas id="v-bench-line" height="110" style="width:100%;display:block;"></canvas>
-          </div>
         </div>
       </div>
 
@@ -1080,19 +980,24 @@
        DATA
        ============================================================ */
     const vIndices = [
-      { nombre:'S&P 500',      que:'500 mayores empresas de EE.UU.',      riesgo:'Medio', destacado:true },
-      { nombre:'Nasdaq 100',   que:'100 l&#237;deres tecnol&#243;gicas',          riesgo:'Alto'  },
-      { nombre:'Dow Jones',    que:'30 industriales consolidadas',       riesgo:'Medio' },
-      { nombre:'Russell 2000', que:'2.000 empresas de baja cap.',        riesgo:'Alto'  },
-      { nombre:'MSCI World',   que:'23 pa&#237;ses desarrollados',            riesgo:'Medio' },
+      { nombre:'S&P 500',      ticker:'SPY',  que:'500 mayores empresas de EE.UU.', destacado:true },
+      { nombre:'Nasdaq 100',   ticker:'QQQ',  que:'100 l&#237;deres tecnol&#243;gicas'      },
+      { nombre:'Dow Jones',    ticker:'DIA',  que:'30 industriales consolidadas'   },
+      { nombre:'Russell 2000', ticker:'IWM',  que:'2.000 empresas de baja cap.'    },
+      { nombre:'MSCI World',   ticker:'URTH', que:'23 pa&#237;ses desarrollados'        },
+      { nombre:'Brasil',       ticker:'EWZ',  que:'Principales empresas de Brasil' },
     ];
 
     /* Mapa de acciones por sector — principales empresas disponibles como CEDEAR */
     const vSectores = [
+      { sector:'Semiconductores e IA', bg:'rgba(6,182,212,.15)', fg:'#22d3ee', empresas:[
+        {t:'NVDA',n:'Nvidia'},{t:'AVGO',n:'Broadcom'},{t:'AMD',n:'AMD'},{t:'TSM',n:'TSMC'},
+        {t:'ASML',n:'ASML'},{t:'MU',n:'Micron'},{t:'QCOM',n:'Qualcomm'},{t:'INTC',n:'Intel'},
+        {t:'ARM',n:'Arm Holdings'},{t:'PLTR',n:'Palantir'},
+      ]},
       { sector:'Tecnolog&#237;a', bg:'rgba(37,99,235,.13)', fg:'#60a5fa', empresas:[
-        {t:'AAPL',n:'Apple'},{t:'MSFT',n:'Microsoft'},{t:'NVDA',n:'Nvidia'},{t:'AVGO',n:'Broadcom'},
-        {t:'ORCL',n:'Oracle'},{t:'AMD',n:'AMD'},{t:'CRM',n:'Salesforce'},{t:'CSCO',n:'Cisco'},
-        {t:'IBM',n:'IBM'},{t:'QCOM',n:'Qualcomm'},{t:'TXN',n:'Texas Inst.'},{t:'MU',n:'Micron'},
+        {t:'AAPL',n:'Apple'},{t:'MSFT',n:'Microsoft'},{t:'ORCL',n:'Oracle'},{t:'CRM',n:'Salesforce'},
+        {t:'ADBE',n:'Adobe'},{t:'CSCO',n:'Cisco'},{t:'IBM',n:'IBM'},
       ]},
       { sector:'Comunicaci&#243;n', bg:'rgba(124,58,237,.14)', fg:'#a78bfa', empresas:[
         {t:'GOOGL',n:'Alphabet'},{t:'META',n:'Meta'},{t:'NFLX',n:'Netflix'},
@@ -1109,7 +1014,7 @@
       { sector:'Financiero', bg:'rgba(201,168,76,.15)', fg:'#e0c56b', empresas:[
         {t:'BRK-B',n:'Berkshire'},{t:'JPM',n:'JPMorgan'},{t:'V',n:'Visa'},{t:'MA',n:'Mastercard'},
         {t:'BAC',n:'Bank of Am.'},{t:'WFC',n:'Wells Fargo'},{t:'GS',n:'Goldman S.'},
-        {t:'MS',n:'Morgan St.'},{t:'AXP',n:'Amex'},{t:'C',n:'Citigroup'},
+        {t:'MS',n:'Morgan St.'},{t:'AXP',n:'Amex'},{t:'C',n:'Citigroup'},{t:'NU',n:'Nubank'},
       ]},
       { sector:'Industriales', bg:'rgba(100,116,139,.18)', fg:'#cbd5e1', empresas:[
         {t:'GE',n:'GE Aerospace'},{t:'RTX',n:'RTX'},{t:'CAT',n:'Caterpillar'},{t:'BA',n:'Boeing'},
@@ -1206,11 +1111,11 @@
       if (!tbody) return;
       tbody.innerHTML = vIndices.map(i => `
         <tr>
+          <td><span class="ticker-badge">${i.ticker}</span></td>
           <td style="font-size:11.5px;font-weight:600;color:var(--text);">
             ${i.nombre}${i.destacado ? ' <span class="destacado-tag" style="margin-left:4px;">&#9733;</span>' : ''}
           </td>
           <td style="font-size:10.5px;color:var(--dim);">${i.que}</td>
-          <td class="r" style="font-size:10.5px;white-space:nowrap;">${riesgoDot(i.riesgo)}</td>
         </tr>
       `).join('');
     }
@@ -1351,38 +1256,6 @@
       `).join('');
     }
 
-    /* ============================================================
-       FILTROS
-       ============================================================ */
-    const filtros = { moneda:'todos', perfil:'todos', horizonte:'todos', tipo:'todos' };
-
-    function aplicarFiltros() {
-      const cards = document.querySelectorAll('.main-grid .card[data-tipo]');
-      let visibles = 0;
-      cards.forEach(c => {
-        const ok = ['moneda','perfil','horizonte','tipo'].every(k => {
-          if (filtros[k] === 'todos') return true;
-          return (c.dataset[k] || '').split(' ').includes(filtros[k]);
-        });
-        c.classList.toggle('oculto', !ok);
-        if (ok) visibles++;
-      });
-      const total = cards.length;
-      const el = document.getElementById('fcount');
-      if (el) el.textContent = visibles === total
-        ? `${total} grupos de instrumentos`
-        : `Mostrando ${visibles} de ${total} grupos`;
-    }
-
-    document.querySelectorAll('.fpill').forEach(p => {
-      p.addEventListener('click', () => {
-        const f = p.dataset.f;
-        filtros[f] = p.dataset.v;
-        document.querySelectorAll(`.fpill[data-f="${f}"]`).forEach(x => x.classList.remove('active'));
-        p.classList.add('active');
-        aplicarFiltros();
-      });
-    });
 
     /* ============================================================
        INIT
@@ -1391,12 +1264,6 @@
       mapaDrawDonut('v-quant-pie', vQuantSectors, 90);
       vFondos.forEach((f, i) => {
         mapaDrawMiniDonut('v-fund-mini-' + i, f.composicion.map(c => ({label:c.tipo, pct:c.pct, color:c.color})));
-      });
-      mapaDrawLine('v-bench-line', vSpxData, {
-        lineColor: '#C9A84C',
-        fillColor: 'rgba(201,168,76,.22)',
-        labelColor: 'rgba(226,232,240,.35)',
-        gridColor: 'rgba(255,255,255,.05)'
       });
     }
 
@@ -1462,7 +1329,6 @@
     vBuildQuantPositions();
     vBuildFondos();
     vBuildBonds();
-    aplicarFiltros();
     actualizarFondosDesdeBalanz();
 
     /* Dibujo sincrónico: requestAnimationFrame se pausa en pestañas en segundo plano */

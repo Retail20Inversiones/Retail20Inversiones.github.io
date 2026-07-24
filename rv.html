@@ -441,10 +441,6 @@
           S&amp;P 500
         </div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--texto-suave);">
-          <div style="width:12px;height:12px;border-radius:3px;background:rgba(239,68,68,.3);flex-shrink:0;"></div>
-          Per&#237;odo de crisis
-        </div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--texto-suave);">
           <div style="width:12px;height:12px;border-radius:3px;background:rgba(139,26,45,.25);border:1.5px solid var(--cp);flex-shrink:0;"></div>
           Tu per&#237;odo invertido
         </div>
@@ -793,29 +789,30 @@
 
     /* Total-return index (dividends reinvested), 100 = Jan 2000.
        Approximate year-end values (2025 = actualidad). CAGR ≈ 8% anual. */
+    /* Los años enteros que usan los botones (2000, 2007, 2014, 2019, 2021, 2025)
+       conservan su valor para que los rendimientos no cambien. Entre ellos se
+       agregan los pisos de cada crisis para que las caídas se vean proporcionales. */
     const data = [
-      {yr:2000, v:90},  {yr:2001, v:80},  {yr:2002, v:62},
-      {yr:2003, v:80},  {yr:2004, v:89},  {yr:2005, v:94},
-      {yr:2006, v:110}, {yr:2007, v:116}, {yr:2008, v:73},
-      {yr:2009, v:93},  {yr:2010, v:107}, {yr:2011, v:109},
+      {yr:2000, v:90},
+      {yr:2001, v:66},  {yr:2002, v:47, label:'Crisis puntocom'},  /* caída pronunciada */
+      {yr:2003, v:66},  {yr:2004, v:85},  {yr:2005, v:94},
+      {yr:2006, v:110}, {yr:2007, v:116},
+      {yr:2008, v:70},  {yr:2008.8, v:45, label:'Crisis 2008'},   /* caída más pronunciada */
+      {yr:2009, v:84},  {yr:2010, v:107}, {yr:2011, v:109},
       {yr:2012, v:127}, {yr:2013, v:167}, {yr:2014, v:191},
       {yr:2015, v:193}, {yr:2016, v:215}, {yr:2017, v:261},
       {yr:2018, v:248}, {yr:2019, v:327},
-      {yr:2020.2, v:222, label:'Mar 2020'},  /* piso COVID: -34% en 33 días */
       {yr:2020, v:389},
-      {yr:2021, v:503}, {yr:2022, v:417}, {yr:2023, v:523},
-      {yr:2024, v:622}, {yr:2025, v:702}
+      {yr:2020.2, v:279, label:'Pandemia COVID-19'},
+      {yr:2021, v:503}, {yr:2022, v:402, label:'Suba de tasas'},
+      {yr:2023, v:523}, {yr:2024, v:622}, {yr:2025, v:702}
     ];
     data.sort((a, b) => a.yr - b.yr);
     const minX = data[0].yr, maxX = data[data.length-1].yr;
-    const minY = 0, maxY = 760;
-
-    const crises = [
-      {x0:2000, x1:2002, pct:'-49%'},
-      {x0:2007, x1:2009, pct:'-57%'},
-      {x0:2020, x1:2020, pct:'-34%'},
-      {x0:2022, x1:2022, pct:'-25%'},
-    ];
+    /* Escala logarítmica en Y: una caída del mismo % se ve del mismo tamaño
+       esté donde esté, así los crashes se ven proporcionales al porcentaje real. */
+    const minY = 32, maxY = 780;
+    const logLo = Math.log(minY), logHi = Math.log(maxY);
 
     /* Interaction state: the client only chooses the ENTRY year — the end
        point is always "hoy", so every scenario shows the long-term recovery. */
@@ -828,7 +825,7 @@
     const pad = {top:28, right:20, bottom:38, left:48};
 
     function px(yr) { return pad.left + (yr - minX) / (maxX - minX) * (W - pad.left - pad.right); }
-    function py(v)  { return pad.top  + (1 - (v - minY) / (maxY - minY)) * (H - pad.top - pad.bottom); }
+    function py(v)  { return pad.top  + (1 - (Math.log(v) - logLo) / (logHi - logLo)) * (H - pad.top - pad.bottom); }
 
     function yrLabel(i) { return data[i].label || (data[i].yr === 2025 ? 'Hoy' : data[i].yr); }
 
@@ -848,7 +845,7 @@
 
       /* Grid */
       const fsize = Math.max(9, W * 0.016);
-      [100, 200, 300, 400, 500, 600, 700].forEach(v => {
+      [50, 100, 200, 400, 700].forEach(v => {
         ctx.strokeStyle = 'rgba(0,0,0,.06)';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(pad.left, py(v)); ctx.lineTo(pad.left + cw, py(v)); ctx.stroke();
@@ -863,18 +860,6 @@
       ctx.textAlign = 'center';
       [2000, 2004, 2008, 2012, 2016, 2020, 2025].forEach(yr => {
         ctx.fillText(yr === 2025 ? 'Hoy' : yr, px(yr), H - pad.bottom + 16);
-      });
-
-      /* Crisis zones */
-      crises.forEach(c => {
-        const x0 = px(c.x0 - 0.5);
-        const x1 = px(c.x1 + 0.5);
-        ctx.fillStyle = 'rgba(239,68,68,.10)';
-        ctx.fillRect(x0, pad.top, x1 - x0, ch);
-        ctx.fillStyle = 'rgba(220,38,38,.7)';
-        ctx.font = `700 ${Math.max(8, W * 0.014)}px Inter,system-ui,sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.fillText(c.pct, (x0 + x1) / 2, pad.top + 13);
       });
 
       /* Selection band: from entry year to today */
@@ -894,8 +879,8 @@
       ctx.beginPath();
       ctx.moveTo(px(data[0].yr), py(data[0].v));
       data.forEach(d => ctx.lineTo(px(d.yr), py(d.v)));
-      ctx.lineTo(px(maxX), py(0));
-      ctx.lineTo(px(minX), py(0));
+      ctx.lineTo(px(maxX), pad.top + ch);
+      ctx.lineTo(px(minX), pad.top + ch);
       ctx.closePath();
       const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
       grad.addColorStop(0, 'rgba(34,197,94,.2)');
