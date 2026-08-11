@@ -47,6 +47,17 @@
     .nav-menu{display:flex;align-items:center;gap:2px;list-style:none;}
     .nav-menu a{display:block;padding:8px 9px;font-size:.8rem;font-weight:500;color:var(--texto-suave);border-radius:var(--r-sm);transition:var(--ease);white-space:nowrap;}
     .nav-menu a:hover,.nav-menu a.on{color:var(--cp);background:var(--fondo-alt);font-weight:600;}
+    /* Nav dropdown */
+    .nav-dd{position:relative;}
+    .nav-dd-trigger{display:flex;align-items:center;gap:4px;padding:8px 9px;font-size:.8rem;font-weight:500;color:var(--texto-suave);border-radius:var(--r-sm);cursor:pointer;white-space:nowrap;transition:var(--ease);}
+    .nav-dd-trigger svg{transition:transform .25s;}
+    .nav-dd:hover .nav-dd-trigger,.nav-dd.open .nav-dd-trigger,.nav-dd-trigger.on{color:var(--cp);background:var(--fondo-alt);font-weight:600;}
+    .nav-dd:hover .nav-dd-trigger svg,.nav-dd.open .nav-dd-trigger svg{transform:rotate(180deg);}
+    .nav-dd-menu{position:absolute;top:100%;left:0;min-width:236px;list-style:none;background:#fff;border:1px solid var(--borde);border-radius:var(--r-sm);box-shadow:var(--s-lg);padding:6px;margin-top:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:all .2s;z-index:1001;}
+    .nav-dd-menu::before{content:'';position:absolute;top:-8px;left:0;right:0;height:8px;}
+    .nav-dd:hover .nav-dd-menu,.nav-dd.open .nav-dd-menu{opacity:1;visibility:visible;transform:translateY(0);}
+    .nav-dd-menu a{display:block;padding:9px 12px;font-size:.82rem;font-weight:500;color:var(--texto-suave);border-radius:6px;white-space:nowrap;}
+    .nav-dd-menu a:hover,.nav-dd-menu a.on{background:var(--fondo-alt);color:var(--cp);font-weight:600;}
     .nav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--cp);color:var(--blanco)!important;border-radius:var(--r-sm);font-size:.83rem;font-weight:700;transition:var(--ease);white-space:nowrap;margin-left:8px;}
     .nav-cta:hover{background:var(--cp-dark)!important;transform:translateY(-1px);box-shadow:var(--s-md);}
     .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
@@ -108,6 +119,17 @@
     .tl-bot-right{position:absolute;bottom:0;right:0;font-size:.62rem;color:var(--texto-claro);font-weight:600;}
 
     /* Fund cards */
+    /* Selector de moneda FCI */
+    .fci-sel-titulo{font-size:clamp(1.3rem,2.4vw,1.7rem);font-weight:700;color:var(--cp);margin-bottom:6px;}
+    .fci-sel-sub{font-size:.95rem;color:var(--texto-suave);margin-bottom:22px;}
+    .fci-toggle{display:inline-flex;background:var(--blanco);border:1.5px solid var(--borde);border-radius:14px;padding:5px;gap:5px;box-shadow:var(--s-sm);}
+    .fci-toggle-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font);font-size:.92rem;font-weight:700;color:var(--texto-suave);background:none;border:none;border-radius:10px;padding:11px 24px;cursor:pointer;transition:var(--ease);}
+    .fci-toggle-btn:hover{color:var(--cp);}
+    .fci-toggle-btn.active{color:#fff;box-shadow:var(--s-sm);}
+    .fci-toggle-btn.pesos.active{background:linear-gradient(135deg,var(--cp),var(--cp-mid));}
+    .fci-toggle-btn.dolares.active{background:linear-gradient(135deg,#1d4ed8,#2563eb);}
+    @media(max-width:520px){.fci-toggle{display:flex;width:100%;}.fci-toggle-btn{flex:1;justify-content:center;padding:11px 12px;}}
+
     .fondos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
     .fondos-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
     .fondo-card{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);padding:24px 22px;transition:var(--ease);position:relative;overflow:hidden;}
@@ -246,6 +268,10 @@
       .nav-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:#fff;flex-direction:column;padding:16px 24px 24px;gap:0;border-bottom:1px solid var(--borde);box-shadow:var(--s-lg);}
       .nav-menu.open{display:flex;}
       .nav-menu a{padding:12px 16px;font-size:.925rem;}
+      .nav-dd{width:100%;}
+      .nav-dd-trigger{width:100%;padding:12px 16px;font-size:.925rem;}
+      .nav-dd-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;background:transparent;padding:0 0 4px 14px;margin-top:0;min-width:0;}
+      .nav-dd-menu a{padding:10px 16px;font-size:.9rem;}
     }
     @media(max-width:480px){
       .sec{padding:56px 0;}
@@ -301,10 +327,16 @@
       <li><a href="index.html#hoja-ruta">Estrategia</a></li>
       <li><a href="index.html#recursos">Videos</a></li>
       <li><a href="index.html#calculadora">Calculadora</a></li>
-      <li><a href="monitor.html">Instrumentos</a></li>
-      <li><a href="fondos.html" class="on">Fondos Comunes de Inversi&#243;n</a></li>
-      <li><a href="on.html">Obligaciones Negociables</a></li>
-      <li><a href="rv.html">Renta Variable</a></li>
+      <li class="nav-dd">
+        <span class="nav-dd-trigger on">Instrumentos
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <ul class="nav-dd-menu">
+          <li><a href="fondos.html" class="on">Fondos Comunes de Inversi&#243;n</a></li>
+          <li><a href="on.html">Obligaciones Negociables</a></li>
+          <li><a href="rv.html">Cedears/Acciones</a></li>
+        </ul>
+      </li>
       <li><a href="index.html#contacto">Contacto</a></li>
     </ul>
     <a href="monitor.html" class="nav-cta" style="background:var(--cs);color:var(--cp-dark);margin-right:8px;">
@@ -521,8 +553,27 @@
 </section>
 
 
+<!-- SELECTOR DE MONEDA -->
+<section class="sec sec-alt" id="fci-selector" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="sec-badge">Eleg&#237; tu moneda</div>
+    <div class="fci-sel-titulo">&#191;En qu&#233; moneda quer&#233;s invertir?</div>
+    <div class="fci-sel-sub">Seleccion&#225; una opci&#243;n para ver los fondos disponibles.</div>
+    <div class="fci-toggle" role="tablist">
+      <button class="fci-toggle-btn pesos active" data-moneda="pesos" role="tab" aria-selected="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        FCI en Pesos
+      </button>
+      <button class="fci-toggle-btn dolares" data-moneda="dolares" role="tab" aria-selected="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        FCI en USD
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- FONDOS EN PESOS -->
-<section class="sec sec-alt" id="pesos">
+<section class="sec sec-alt fci-panel" id="pesos" style="padding-top:36px;">
   <div class="wrap">
 
     <div class="plazo-section-header">
@@ -801,7 +852,7 @@
 
 
 <!-- FONDOS EN DOLARES -->
-<section class="sec" id="dolares">
+<section class="sec sec-alt fci-panel" id="dolares" style="padding-top:36px;display:none;">
   <div class="wrap">
 
     <div class="plazo-section-header">
@@ -991,6 +1042,26 @@
       toggle.setAttribute('aria-expanded', toggle.classList.contains('open'));
     });
   }
+  document.querySelectorAll('.nav-dd-trigger').forEach(t => t.addEventListener('click', e => {
+    e.stopPropagation();
+    const dd = t.closest('.nav-dd');
+    const wasOpen = dd.classList.contains('open');
+    document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open'));
+    if (!wasOpen) dd.classList.add('open');
+  }));
+  document.addEventListener('click', () => document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')));
+
+  /* Selector de moneda FCI: muestra los fondos según Pesos / USD */
+  document.querySelectorAll('.fci-toggle-btn').forEach(btn => btn.addEventListener('click', () => {
+    const moneda = btn.dataset.moneda;
+    document.querySelectorAll('.fci-toggle-btn').forEach(b => {
+      const act = b === btn;
+      b.classList.toggle('active', act);
+      b.setAttribute('aria-selected', act);
+    });
+    document.getElementById('pesos').style.display = moneda === 'pesos' ? '' : 'none';
+    document.getElementById('dolares').style.display = moneda === 'dolares' ? '' : 'none';
+  }));
 </script>
 
 </body>

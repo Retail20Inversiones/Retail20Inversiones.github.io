@@ -24,6 +24,16 @@
     .mnav-menu{display:flex;align-items:center;gap:2px;list-style:none;flex-wrap:wrap;}
     .mnav-menu a{display:block;padding:7px 10px;font-size:.78rem;font-weight:500;color:rgba(226,232,240,.72);border-radius:7px;transition:all .25s;white-space:nowrap;}
     .mnav-menu a:hover,.mnav-menu a.on{color:#fff;background:rgba(255,255,255,.08);font-weight:600;}
+    .mnav-dd{position:relative;}
+    .mnav-dd-trigger{display:flex;align-items:center;gap:4px;padding:7px 10px;font-size:.78rem;font-weight:500;color:rgba(226,232,240,.72);border-radius:7px;cursor:pointer;white-space:nowrap;transition:all .25s;}
+    .mnav-dd-trigger svg{transition:transform .25s;}
+    .mnav-dd:hover .mnav-dd-trigger,.mnav-dd.open .mnav-dd-trigger{color:#fff;background:rgba(255,255,255,.08);font-weight:600;}
+    .mnav-dd:hover .mnav-dd-trigger svg,.mnav-dd.open .mnav-dd-trigger svg{transform:rotate(180deg);}
+    .mnav-dd-menu{position:absolute;top:100%;left:0;min-width:232px;list-style:none;background:#13203a;border:1px solid rgba(255,255,255,.1);border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.45);padding:6px;margin-top:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:all .2s;z-index:1001;}
+    .mnav-dd-menu::before{content:'';position:absolute;top:-10px;left:0;right:0;height:10px;}
+    .mnav-dd:hover .mnav-dd-menu,.mnav-dd.open .mnav-dd-menu{opacity:1;visibility:visible;transform:translateY(0);}
+    .mnav-dd-menu a{display:block;padding:9px 12px;font-size:.8rem;font-weight:500;color:rgba(226,232,240,.75);border-radius:6px;white-space:nowrap;}
+    .mnav-dd-menu a:hover,.mnav-dd-menu a.on{background:rgba(255,255,255,.08);color:#fff;font-weight:600;}
     .mnav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;background:#C9A84C;color:#0b1426!important;border-radius:7px;font-size:.79rem;font-weight:700;transition:all .25s;white-space:nowrap;}
     .mnav-cta:hover{background:#dcbb5c;transform:translateY(-1px);}
 
@@ -654,10 +664,16 @@
       <li><a href="index.html">Inicio</a></li>
       <li><a href="index.html#hoja-ruta">Estrategia</a></li>
       <li><a href="index.html#calculadora">Calculadora</a></li>
-      <li><a href="fondos.html">Fondos</a></li>
-      <li><a href="on.html">Obligaciones Negociables</a></li>
-      <li><a href="rv.html">Renta Variable</a></li>
-      <li><a href="monitor.html" class="on">Instrumentos</a></li>
+      <li class="mnav-dd">
+        <span class="mnav-dd-trigger">Instrumentos
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <ul class="mnav-dd-menu">
+          <li><a href="fondos.html">Fondos Comunes de Inversi&#243;n</a></li>
+          <li><a href="on.html">Obligaciones Negociables</a></li>
+          <li><a href="rv.html">Cedears/Acciones</a></li>
+        </ul>
+      </li>
     </ul>
     <a href="index.html#contacto" class="mnav-cta">Hablar con un asesor</a>
   </div>
@@ -1340,6 +1356,16 @@
       clearTimeout(vResizeTimer);
       vResizeTimer = setTimeout(dibujar, 150);
     });
+
+    /* Dropdown de Instrumentos: abre con click (además del hover) */
+    document.querySelectorAll('.mnav-dd-trigger').forEach(t => t.addEventListener('click', e => {
+      e.stopPropagation();
+      const dd = t.closest('.mnav-dd');
+      const wasOpen = dd.classList.contains('open');
+      document.querySelectorAll('.mnav-dd.open').forEach(d => d.classList.remove('open'));
+      if (!wasOpen) dd.classList.add('open');
+    }));
+    document.addEventListener('click', () => document.querySelectorAll('.mnav-dd.open').forEach(d => d.classList.remove('open')));
 
 })();
 </script>
