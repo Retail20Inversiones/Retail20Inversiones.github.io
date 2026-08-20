@@ -6,6 +6,12 @@
 *.xlsx
 *.xls
 *.docx
+*.pptx
+*.ppt
+Doc Util/
+
+# Páginas internas (no forman parte del sitio público de clientes)
+reclutamiento-fa.html
 
 # Basura del sistema operativo
 .DS_Store

@@ -169,6 +169,17 @@
     .cf-renta{color:var(--verde)!important;}
     .cf-amort{color:var(--azul)!important;}
 
+    /* Tabla ONs destacadas */
+    .on-dest-wrap{background:var(--blanco);border:1.5px solid var(--borde);border-radius:var(--r);overflow-x:auto;margin-top:22px;box-shadow:var(--s-sm);}
+    .on-dest{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px;}
+    .on-dest th{background:var(--cp);color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:12px 16px;text-align:left;white-space:nowrap;}
+    .on-dest td{padding:14px 16px;border-bottom:1px solid var(--borde);color:var(--texto-suave);vertical-align:middle;}
+    .on-dest tbody tr:last-child td,.on-dest tr:last-child td{border-bottom:none;}
+    .on-dest tr:hover td{background:var(--fondo);}
+    .on-dest td.on-emp{font-weight:700;color:var(--texto);}
+    .on-tk{display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;font-weight:700;letter-spacing:.03em;color:var(--cp);background:rgba(139,26,45,.08);border:1px solid rgba(139,26,45,.18);border-radius:6px;padding:3px 9px;}
+    .on-dest td.on-tir{font-weight:800;color:var(--cs-dark);white-space:nowrap;}
+
     /* Liquidity callouts */
     .liq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
     .liq-card{border-radius:var(--r);padding:22px 20px;border:1.5px solid;}
@@ -451,6 +462,38 @@
           <div class="empresa-ticker">Banca privada</div>
         </div>
       </div>
+    </div>
+
+    <!-- ── ONs destacadas que seguimos ── -->
+    <div style="margin-top:52px;">
+      <div class="sec-badge">Nuestra selecci&#243;n</div>
+      <h3 style="font-size:1.2rem;font-weight:700;color:var(--texto);margin:10px 0 6px;">ONs que estamos siguiendo</h3>
+      <p style="font-size:.9rem;color:var(--texto-suave);max-width:600px;line-height:1.7;">Una selecci&#243;n de obligaciones negociables en d&#243;lares que hoy destacamos:</p>
+
+      <div class="on-dest-wrap">
+        <table class="on-dest">
+          <thead>
+            <tr><th>Empresa</th><th>Ticker</th><th>TIR</th><th>Vencimiento</th><th>Ley</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="on-emp">Vista Energy</td>
+              <td><span class="on-tk">VSCXO</span></td>
+              <td class="on-tir">6,93%</td>
+              <td>04/08/2038</td>
+              <td>Nueva York</td>
+            </tr>
+            <tr>
+              <td class="on-emp">Pampa Energ&#237;a</td>
+              <td><span class="on-tk">MGCRO</span></td>
+              <td class="on-tir">7,12%</td>
+              <td>14/11/2037</td>
+              <td>Nueva York</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.75rem;color:var(--texto-claro);margin-top:10px;">TIR estimada seg&#250;n el precio de mercado. Datos referenciales &#8212; pueden variar diariamente.</p>
     </div>
 
     <!-- ── CASHFLOW EJEMPLO: YPF YM39O ── -->

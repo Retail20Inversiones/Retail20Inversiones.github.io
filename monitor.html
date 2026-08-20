@@ -776,7 +776,7 @@
         </div>
         <div class="bonds-row" id="v-bonds-row"></div>
         <div class="tir-compare">
-          <div class="tir-compare-title">Comparaci&#243;n de cup&#243;n anual</div>
+          <div class="tir-compare-title">Comparaci&#243;n de TIR</div>
           <div id="v-cupon-bars"></div>
         </div>
         <a href="on.html" class="btn-outline-sm">Ver Obligaciones Negociables &#8594;</a>
@@ -1096,12 +1096,12 @@
     ];
 
     const vBonds = [
-      { empresa:'Pampa Energ&#237;a', ticker:'MGC1O', sector:'Energ&#237;a', vencimiento:'2029', ley:'Nueva York',
-        calificacion:'B+', cupon:'7.5%', cuponNum:7.5, pago:'Semestral', montoMin:'USD 1.000',
-        riesgo:'Moderado', estilo:'Defensivo', color:'#1a2e4a' },
-      { empresa:'YPF S.A.', ticker:'YPFDO', sector:'Oil &amp; Gas', vencimiento:'2031', ley:'Nueva York',
-        calificacion:'B+', cupon:'8.5%', cuponNum:8.5, pago:'Semestral', montoMin:'USD 1.000',
-        riesgo:'Moderado-Alto', estilo:'Mayor retorno', color:'#8B1A2D' },
+      { empresa:'Vista Energy', ticker:'VSCXO', sector:'Energ&#237;a &#8212; Petr&#243;leo y gas', vencimiento:'2038', ley:'Nueva York',
+        calificacion:'AAA (arg)', tir:'6.93%', tirNum:6.93, pago:'Semestral', montoMin:'USD 1.000',
+        riesgo:'Conservador', estilo:'Amortizable', color:'#1a2e4a' },
+      { empresa:'Pampa Energ&#237;a', ticker:'MGCRO', sector:'Energ&#237;a &#8212; Petr&#243;leo y gas', vencimiento:'2037', ley:'Nueva York',
+        calificacion:'AAA (arg)', tir:'7.12%', tirNum:7.12, pago:'Semestral', montoMin:'USD 10.000',
+        riesgo:'Conservador', estilo:'Bullet', color:'#8B1A2D' },
     ];
 
     /* S&P 500 total return — USD 10.000 invertidos en 2000 (consistente con rv.html) */
@@ -1248,9 +1248,8 @@
             <span class="bond-estilo" style="color:${b.color === '#8B1A2D' ? '#e26d7d' : '#7ea6e0'};">${b.estilo}</span>
           </div>
           <div class="bond-metrics">
-            <div class="bond-metric-item"><span class="bond-metric-label">Cup&#243;n</span><span class="bond-metric-val" style="color:var(--gold);">${b.cupon}</span></div>
+            <div class="bond-metric-item"><span class="bond-metric-label">TIR</span><span class="bond-metric-val" style="color:var(--gold);">${b.tir}</span></div>
             <div class="bond-metric-item"><span class="bond-metric-label">Vence</span><span class="bond-metric-val">${b.vencimiento}</span></div>
-            <div class="bond-metric-item"><span class="bond-metric-label">Pago</span><span class="bond-metric-val">${b.pago}</span></div>
             <div class="bond-metric-item"><span class="bond-metric-label">M&#237;nimo</span><span class="bond-metric-val">${b.montoMin}</span></div>
           </div>
           <div class="bond-badges">
@@ -1262,12 +1261,12 @@
 
       const bars = document.getElementById('v-cupon-bars');
       if (!bars) return;
-      const max = Math.max(...vBonds.map(b => b.cuponNum));
+      const max = Math.max(...vBonds.map(b => b.tirNum));
       bars.innerHTML = vBonds.map(b => `
         <div class="tir-bar-row">
           <div class="tir-bar-label">${b.empresa}</div>
-          <div class="tir-bar-track"><div class="tir-bar-fill" style="width:${(b.cuponNum / max) * 100}%;background:${b.color === '#8B1A2D' ? '#C9A84C' : '#2563eb'};"></div></div>
-          <div class="tir-bar-val" style="color:var(--gold);">${b.cupon}</div>
+          <div class="tir-bar-track"><div class="tir-bar-fill" style="width:${(b.tirNum / max) * 100}%;background:${b.color === '#8B1A2D' ? '#C9A84C' : '#2563eb'};"></div></div>
+          <div class="tir-bar-val" style="color:var(--gold);">${b.tir}</div>
         </div>
       `).join('');
     }
